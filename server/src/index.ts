@@ -34,6 +34,16 @@ console.log("Upload directory:", config.uploadDir);
 console.log("Upload dir exists:", fs.existsSync(config.uploadDir));
 app.use("/uploads", express.static(config.uploadDir));
 
+// Fallback for uploads — explicitly serve files if static middleware misses
+app.get("/uploads/:filename", (req, res) => {
+  const filePath = path.join(config.uploadDir, req.params.filename);
+  if (fs.existsSync(filePath)) {
+    res.sendFile(filePath);
+  } else {
+    res.status(404).json({ error: "File not found", path: filePath });
+  }
+});
+
 // Debug: list uploaded files
 app.get("/api/debug/uploads", (_req, res) => {
   try {
