@@ -24,7 +24,7 @@ export function useImageUpload() {
       const result = await api.uploadImage(file);
       setState({
         imageId: result.imageId,
-        imageUrl: `http://localhost:3001${result.url}`,
+        imageUrl: result.url,
         filename: result.filename,
         isUploading: false,
         error: null,
