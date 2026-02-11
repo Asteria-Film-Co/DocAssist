@@ -30,7 +30,19 @@ app.use(
 app.use(express.json({ limit: "50mb" }));
 
 // Serve uploaded files
+console.log("Upload directory:", config.uploadDir);
+console.log("Upload dir exists:", fs.existsSync(config.uploadDir));
 app.use("/uploads", express.static(config.uploadDir));
+
+// Debug: list uploaded files
+app.get("/api/debug/uploads", (_req, res) => {
+  try {
+    const files = fs.readdirSync(config.uploadDir);
+    res.json({ uploadDir: config.uploadDir, files });
+  } catch (err) {
+    res.json({ uploadDir: config.uploadDir, error: String(err) });
+  }
+});
 
 // Routes
 app.use("/api/upload", uploadRouter);
