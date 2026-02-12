@@ -1,4 +1,5 @@
 import type { Effect } from "../../types/effects";
+import { Led } from "../hardware/Led";
 
 interface EffectButtonProps {
   effect: Effect;
@@ -17,6 +18,12 @@ export function EffectButton({
 }: EffectButtonProps) {
   const isStub = effect.apiType === "stub";
 
+  const ledColor = isActive
+    ? "red"
+    : isSelected && !isActive
+      ? "amber"
+      : "off";
+
   return (
     <button
       className={`effect-btn ${isActive ? "effect-btn--active" : ""} ${isSelected && !isActive ? "effect-btn--selected" : ""} ${isStub ? "effect-btn--stub" : ""}`}
@@ -24,7 +31,9 @@ export function EffectButton({
       disabled={disabled || isStub}
       title={effect.description}
     >
-      <span className="effect-btn__indicator" />
+      <span className="effect-btn__led">
+        <Led color={ledColor} size={12} pulse={isActive} />
+      </span>
       <div className="effect-btn__text">
         <span className="effect-btn__name">{effect.name}</span>
         {isActive && (

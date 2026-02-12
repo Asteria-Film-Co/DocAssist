@@ -1,43 +1,52 @@
 /* ========================================
-   RESTORE — Braun/Dieter Rams Design System
-   Tactile analog modules, warm retrofuturism
+   RESTORE — Braun/Dieter Rams Hardware UI
+   SVG-powered tactile analog modules
    ======================================== */
 
 /* ========================================
-   APP LAYOUT — 3-module grid with gaps
+   APP LAYOUT — Hardware chassis with modules
    ======================================== */
 
 .app-layout {
   display: grid;
-  grid-template-columns: 272px 1fr 340px;
+  grid-template-columns: 280px 1fr 350px;
   grid-template-rows: 1fr auto;
   height: 100vh;
-  padding: 12px;
-  gap: 12px;
+  padding: 14px;
+  gap: 14px;
   overflow: hidden;
 }
 
-.app-layout__sidebar {
-  background: var(--bg-module);
-  border-radius: var(--radius-module);
-  box-shadow: var(--shadow-module);
-  border: 1px solid var(--border-light);
-  overflow-y: auto;
-}
+/* --- Module Panels (shared hardware look) --- */
 
+.app-layout__sidebar,
 .app-layout__center {
-  background: var(--bg-surface);
+  background:
+    linear-gradient(180deg, rgba(255,255,255,0.08) 0%, transparent 40%, rgba(0,0,0,0.03) 100%),
+    var(--bg-module);
   border-radius: var(--radius-module);
-  box-shadow: var(--shadow-module);
   border: 1px solid var(--border-light);
-  overflow-y: auto;
+  box-shadow:
+    0 1px 0 rgba(255,255,255,0.6),
+    0 4px 16px rgba(0,0,0,0.08),
+    inset 0 1px 0 rgba(255,255,255,0.3);
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
 }
 
 .app-layout__chat {
-  background: var(--bg-terminal);
+  background:
+    linear-gradient(180deg, rgba(40,38,34,1) 0%, rgba(26,25,22,1) 20%),
+    var(--bg-terminal);
   border-radius: var(--radius-module);
-  box-shadow: var(--shadow-module), 0 0 1px rgba(0,0,0,0.3);
-  border: 1px solid #2a2825;
+  border: 2px solid #3a3730;
+  box-shadow:
+    0 1px 0 rgba(255,255,255,0.1),
+    0 4px 20px rgba(0,0,0,0.2),
+    inset 0 1px 0 rgba(255,255,255,0.03),
+    inset 0 0 30px rgba(0,0,0,0.3);
   overflow: hidden;
   display: flex;
   flex-direction: column;
@@ -48,16 +57,35 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 4px 0;
+  padding: 2px 0;
 }
 
 .app-layout__branding {
   font-family: "JetBrains Mono", monospace;
-  font-size: 9px;
+  font-size: 8px;
   font-weight: 600;
-  letter-spacing: 0.25em;
+  letter-spacing: 0.3em;
   text-transform: uppercase;
   color: var(--text-muted);
+  opacity: 0.6;
+}
+
+/* ========================================
+   MODULE SCREWS — Corner hardware details
+   ======================================== */
+
+.module-screws {
+  display: flex;
+  justify-content: space-between;
+  padding: 6px 8px 0;
+  flex-shrink: 0;
+  pointer-events: none;
+  opacity: 0.7;
+}
+
+.module-screws--bottom {
+  padding: 0 8px 6px;
+  margin-top: auto;
 }
 
 /* ========================================
@@ -68,172 +96,191 @@
   display: flex;
   flex-direction: column;
   height: 100%;
+  min-height: 0;
 }
 
 .sidebar__header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 18px 16px 4px;
+  padding: 10px 14px 6px;
 }
 
-.sidebar__title {
-  font-family: "JetBrains Mono", monospace;
-  font-size: 14px;
-  font-weight: 800;
-  color: var(--accent-red);
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
+.logo-plate {
+  line-height: 0;
 }
 
-.sidebar__settings-btn {
-  background: var(--bg-surface);
-  border: 1px solid var(--border-light);
-  color: var(--text-muted);
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
+.settings-knob:hover svg {
+  filter: brightness(1.1);
+  transform: rotate(-15deg);
+  transition: all 0.2s ease;
+}
+
+.settings-knob svg {
+  transition: all 0.2s ease;
+}
+
+.settings-knob:active svg {
+  transform: rotate(-30deg);
+  filter: brightness(0.95);
+}
+
+/* Sidebar divider — etched groove line */
+.sidebar__divider {
   display: flex;
   align-items: center;
-  justify-content: center;
-  box-shadow: var(--shadow-button);
-  transition: all 0.15s;
+  gap: 8px;
+  padding: 2px 14px 8px;
 }
 
-.sidebar__settings-btn:hover {
-  background: var(--bg-white);
-  color: var(--text-primary);
-  transform: translateY(-1px);
-  box-shadow: 0 3px 6px rgba(0,0,0,0.15);
-}
-
-.sidebar__settings-btn:active {
-  transform: translateY(0);
-  box-shadow: var(--shadow-button-pressed);
-}
-
-.sidebar__subtitle {
+.sidebar__divider-label {
   font-family: "JetBrains Mono", monospace;
-  font-size: 9px;
-  font-weight: 500;
+  font-size: 8px;
+  font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 0.18em;
+  letter-spacing: 0.2em;
   color: var(--text-muted);
-  padding: 4px 16px 12px;
+  white-space: nowrap;
+  opacity: 0.8;
+}
+
+.sidebar__divider-line {
+  flex: 1;
+  height: 0;
+  border-top: 1px solid var(--border-groove-dark);
+  border-bottom: 1px solid var(--border-groove-light);
 }
 
 .sidebar__content {
   flex: 1;
   overflow-y: auto;
-  padding: 0 10px 16px;
+  padding: 0 10px 6px;
+  min-height: 0;
+}
+
+.sidebar__footer {
+  display: flex;
+  justify-content: center;
+  padding: 6px 0 2px;
+  opacity: 0.5;
 }
 
 /* ========================================
-   EFFECTS LIST — Physical Button Grid
+   EFFECTS LIST
    ======================================== */
 
 .effects-list {
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 4px;
 }
 
 .effects-list__hint {
   text-align: center;
   color: var(--text-muted);
-  font-size: 11px;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 10px;
   font-weight: 500;
   padding: 20px 12px;
   margin-top: 8px;
-  font-style: italic;
+  letter-spacing: 0.02em;
 }
 
 /* ========================================
-   EFFECT BUTTON — Tactile Physical Buttons
+   EFFECT BUTTON — Physical push buttons
+   These look like real hardware buttons
+   with embossed surfaces and LED indicators
    ======================================== */
 
 .effect-btn {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
   width: 100%;
-  padding: 10px 12px;
-  background: var(--bg-surface);
+  padding: 8px 10px;
+  background:
+    linear-gradient(180deg, rgba(255,255,255,0.3) 0%, transparent 40%, rgba(0,0,0,0.04) 100%),
+    var(--bg-surface);
   border: 1px solid var(--border-light);
-  border-bottom: 2px solid var(--border-module);
+  border-bottom: 3px solid var(--border-module);
   border-radius: var(--radius-button);
   color: var(--text-primary);
   text-align: left;
-  box-shadow: var(--shadow-button);
-  transition: all 0.1s ease;
+  box-shadow:
+    0 2px 4px rgba(0,0,0,0.12),
+    0 1px 1px rgba(0,0,0,0.08),
+    inset 0 1px 0 rgba(255,255,255,0.5);
+  transition: all 0.08s ease;
   position: relative;
-  overflow: hidden;
-}
-
-.effect-btn::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 1px;
-  background: rgba(255,255,255,0.7);
 }
 
 .effect-btn:hover:not(:disabled) {
-  background: var(--bg-white);
+  background:
+    linear-gradient(180deg, rgba(255,255,255,0.4) 0%, transparent 40%, rgba(0,0,0,0.02) 100%),
+    var(--bg-white);
   transform: translateY(-1px);
-  box-shadow: 0 3px 8px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.08);
+  box-shadow:
+    0 4px 8px rgba(0,0,0,0.12),
+    0 2px 3px rgba(0,0,0,0.06),
+    inset 0 1px 0 rgba(255,255,255,0.6);
 }
 
 .effect-btn:active:not(:disabled) {
-  transform: translateY(1px);
-  box-shadow: var(--shadow-button-pressed);
+  transform: translateY(2px);
   border-bottom-width: 1px;
-  border-top: 2px solid var(--border-inset);
+  border-top: 1px solid var(--border-inset);
+  box-shadow:
+    inset 0 2px 6px rgba(0,0,0,0.2),
+    inset 0 1px 2px rgba(0,0,0,0.1);
+  background:
+    linear-gradient(180deg, rgba(0,0,0,0.04) 0%, transparent 40%, rgba(255,255,255,0.1) 100%),
+    var(--bg-module-inset);
 }
 
 .effect-btn:disabled {
-  opacity: 0.35;
+  opacity: 0.3;
   cursor: not-allowed;
 }
 
+/* Active (processing) state — button is pressed and latched */
 .effect-btn--active {
-  background: var(--bg-module-inset) !important;
-  box-shadow: var(--shadow-button-pressed) !important;
-  transform: translateY(1px) !important;
-  border-bottom-width: 1px;
-  border-top: 2px solid var(--border-inset);
+  transform: translateY(2px) !important;
+  border-bottom-width: 1px !important;
+  border-top: 1px solid var(--border-inset) !important;
+  box-shadow:
+    inset 0 2px 6px rgba(0,0,0,0.2),
+    inset 0 1px 2px rgba(0,0,0,0.1) !important;
+  background:
+    linear-gradient(180deg, rgba(0,0,0,0.06) 0%, transparent 40%, rgba(255,255,255,0.05) 100%),
+    var(--bg-module-inset) !important;
 }
 
-.effect-btn--active .effect-btn__indicator {
-  background: var(--accent-red);
-  box-shadow: 0 0 6px var(--accent-red-glow), 0 0 12px var(--accent-red-glow);
-}
-
+/* Selected state — highlighted */
 .effect-btn--selected {
-  background: var(--bg-white) !important;
-  border-color: var(--accent-amber);
-  box-shadow: 0 0 0 1px var(--accent-amber), var(--shadow-button);
-}
-
-.effect-btn--selected .effect-btn__indicator {
-  background: var(--accent-amber);
-  box-shadow: 0 0 6px var(--accent-amber-glow);
+  border-color: var(--accent-amber) !important;
+  box-shadow:
+    0 0 0 1px var(--accent-amber),
+    0 2px 4px rgba(0,0,0,0.12),
+    inset 0 1px 0 rgba(255,255,255,0.5) !important;
 }
 
 .effect-btn--stub {
-  opacity: 0.3;
+  opacity: 0.25;
 }
 
-.effect-btn__indicator {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: var(--border-module);
+.effect-btn__led {
   flex-shrink: 0;
-  transition: all 0.2s;
-  box-shadow: inset 0 1px 2px rgba(0,0,0,0.2);
+  line-height: 0;
+}
+
+/* Pulse animation for active LED */
+.led--pulse {
+  animation: led-pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes led-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.6; }
 }
 
 .effect-btn__text {
@@ -243,7 +290,7 @@
 
 .effect-btn__name {
   display: block;
-  font-size: 12.5px;
+  font-size: 12px;
   font-weight: 600;
   letter-spacing: 0.01em;
 }
@@ -251,20 +298,21 @@
 .effect-btn__status {
   display: block;
   font-family: "JetBrains Mono", monospace;
-  font-size: 10px;
+  font-size: 9px;
   color: var(--accent-red);
-  font-weight: 500;
-  letter-spacing: 0.02em;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
 }
 
 .effect-btn__badge {
   font-family: "JetBrains Mono", monospace;
-  font-size: 8px;
+  font-size: 7px;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.1em;
-  padding: 3px 6px;
-  border-radius: var(--radius-small);
+  letter-spacing: 0.12em;
+  padding: 2px 5px;
+  border-radius: 3px;
   background: var(--bg-module-inset);
   color: var(--text-muted);
   flex-shrink: 0;
@@ -272,7 +320,7 @@
 }
 
 /* ========================================
-   CENTER PANEL — Clean Workspace
+   CENTER PANEL — Workspace
    ======================================== */
 
 .center-panel {
@@ -280,6 +328,7 @@
   flex-direction: column;
   height: 100%;
   position: relative;
+  min-height: 0;
 }
 
 /* ========================================
@@ -291,17 +340,34 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 20px;
+  margin: 16px;
   border: 2px dashed var(--border-module);
   border-radius: var(--radius-module);
   cursor: pointer;
   transition: all 0.2s;
-  background: var(--bg-module);
+  background:
+    repeating-linear-gradient(
+      45deg,
+      transparent,
+      transparent 20px,
+      rgba(0,0,0,0.01) 20px,
+      rgba(0,0,0,0.01) 40px
+    ),
+    var(--bg-module);
 }
 
 .image-upload:hover {
   border-color: var(--accent-amber);
-  background: var(--accent-amber-glow);
+  background:
+    repeating-linear-gradient(
+      45deg,
+      transparent,
+      transparent 20px,
+      rgba(184,134,11,0.02) 20px,
+      rgba(184,134,11,0.02) 40px
+    ),
+    var(--accent-amber-glow);
+  box-shadow: inset 0 0 20px rgba(184,134,11,0.05);
 }
 
 .image-upload__prompt {
@@ -312,10 +378,11 @@
 .image-upload__icon {
   color: var(--text-muted);
   margin-bottom: 16px;
+  opacity: 0.6;
 }
 
 .image-upload__text {
-  font-size: 15px;
+  font-size: 14px;
   font-weight: 600;
   color: var(--text-primary);
   margin-bottom: 8px;
@@ -323,10 +390,11 @@
 
 .image-upload__subtext {
   font-family: "JetBrains Mono", monospace;
-  font-size: 10px;
+  font-size: 9px;
   color: var(--text-muted);
   font-weight: 500;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
 }
 
 .image-upload__loading {
@@ -343,21 +411,24 @@
   display: flex;
   flex-direction: column;
   overflow: hidden;
+  min-height: 0;
 }
 
 .image-preview__header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 10px 16px;
-  border-bottom: 1px solid var(--border-light);
+  padding: 8px 14px;
+  border-bottom: 1px solid var(--border-groove-dark);
   flex-shrink: 0;
-  background: var(--bg-module);
+  background:
+    linear-gradient(180deg, var(--bg-module) 0%, var(--bg-module-inset) 100%);
+  box-shadow: 0 1px 0 var(--border-groove-light);
 }
 
 .image-preview__filename {
   font-family: "JetBrains Mono", monospace;
-  font-size: 11px;
+  font-size: 10px;
   font-weight: 500;
   color: var(--text-secondary);
   overflow: hidden;
@@ -368,52 +439,59 @@
 
 .image-preview__effect-tag {
   font-family: "JetBrains Mono", monospace;
-  font-size: 10px;
+  font-size: 8px;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.12em;
   color: var(--accent-amber);
   background: var(--accent-amber-glow);
-  padding: 3px 10px;
-  border-radius: var(--radius-small);
-  border: 1px solid rgba(184, 134, 11, 0.3);
+  padding: 2px 8px;
+  border-radius: 3px;
+  border: 1px solid rgba(184, 134, 11, 0.25);
   flex-shrink: 0;
 }
 
 .image-preview__clear-btn {
   font-family: "JetBrains Mono", monospace;
-  font-size: 10px;
+  font-size: 9px;
   font-weight: 600;
-  padding: 5px 12px;
-  background: var(--bg-surface);
+  padding: 4px 10px;
+  background:
+    linear-gradient(180deg, rgba(255,255,255,0.2) 0%, transparent 100%),
+    var(--bg-surface);
   border: 1px solid var(--border-light);
   border-bottom: 2px solid var(--border-module);
   color: var(--text-secondary);
   border-radius: var(--radius-button);
   text-transform: uppercase;
   letter-spacing: 0.06em;
-  box-shadow: var(--shadow-button);
-  transition: all 0.1s;
+  box-shadow:
+    0 1px 3px rgba(0,0,0,0.1),
+    inset 0 1px 0 rgba(255,255,255,0.4);
+  transition: all 0.08s;
 }
 
 .image-preview__clear-btn:hover {
   background: var(--bg-white);
   color: var(--text-primary);
   transform: translateY(-1px);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
 }
 
 .image-preview__clear-btn:active {
   transform: translateY(1px);
-  box-shadow: var(--shadow-button-pressed);
+  border-bottom-width: 1px;
+  box-shadow: inset 0 2px 4px rgba(0,0,0,0.15);
 }
 
 .image-preview__images {
   flex: 1;
   display: flex;
-  gap: 16px;
-  padding: 16px;
+  gap: 14px;
+  padding: 14px;
   overflow: auto;
   align-items: flex-start;
+  min-height: 0;
 }
 
 .image-preview__original,
@@ -427,17 +505,17 @@
   align-items: center;
   justify-content: space-between;
   font-family: "JetBrains Mono", monospace;
-  font-size: 9px;
+  font-size: 8px;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.15em;
+  letter-spacing: 0.18em;
   color: var(--text-muted);
-  margin-bottom: 8px;
+  margin-bottom: 6px;
 }
 
 .image-preview__download {
   font-family: "JetBrains Mono", monospace;
-  font-size: 10px;
+  font-size: 9px;
   text-transform: uppercase;
   letter-spacing: 0.08em;
   font-weight: 600;
@@ -455,7 +533,9 @@
   position: relative;
   border-radius: var(--radius-button);
   overflow: hidden;
-  box-shadow: var(--shadow-raised);
+  box-shadow:
+    0 2px 8px rgba(0,0,0,0.1),
+    0 1px 2px rgba(0,0,0,0.06);
   border: 1px solid var(--border-light);
 }
 
@@ -466,10 +546,10 @@
 
 .image-preview__trash-btn {
   position: absolute;
-  top: 8px;
-  right: 8px;
-  width: 32px;
-  height: 32px;
+  top: 6px;
+  right: 6px;
+  width: 28px;
+  height: 28px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -488,7 +568,6 @@
 
 .image-preview__trash-btn:hover {
   background: var(--accent-red);
-  color: #fff;
 }
 
 .image-preview__result img,
@@ -496,7 +575,7 @@
   width: 100%;
   border-radius: var(--radius-button);
   display: block;
-  box-shadow: var(--shadow-raised);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
   border: 1px solid var(--border-light);
 }
 
@@ -512,13 +591,13 @@
 
 .image-preview__processing p {
   font-family: "JetBrains Mono", monospace;
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 500;
   letter-spacing: 0.02em;
 }
 
 .image-preview__hint {
-  font-size: 11px;
+  font-size: 10px;
   color: var(--text-muted);
   font-weight: 500;
 }
@@ -531,15 +610,15 @@
   justify-content: center;
   color: var(--accent-red);
   gap: 12px;
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 500;
 }
 
 .image-preview__error button {
   font-family: "JetBrains Mono", monospace;
-  font-size: 10px;
+  font-size: 9px;
   font-weight: 600;
-  padding: 6px 14px;
+  padding: 5px 12px;
   background: var(--bg-surface);
   border: 1px solid var(--border-light);
   border-bottom: 2px solid var(--border-module);
@@ -547,11 +626,11 @@
   border-radius: var(--radius-button);
   text-transform: uppercase;
   letter-spacing: 0.06em;
-  box-shadow: var(--shadow-button);
 }
 
 /* ========================================
-   CHAT PANEL — Warm Analog Terminal
+   CHAT PANEL — CRT Terminal Module
+   The dark module that houses Atlas
    ======================================== */
 
 .chat-panel {
@@ -561,40 +640,75 @@
   overflow: hidden;
 }
 
+.chat-panel__bezel {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+}
+
 .chat-panel__header {
-  padding: 16px 16px 12px;
-  border-bottom: 1px solid var(--border-terminal);
+  padding: 12px 14px 10px;
+  border-bottom: 1px solid #2a2825;
   flex-shrink: 0;
   display: flex;
   align-items: center;
   gap: 8px;
-}
-
-.chat-panel__header::before {
-  content: "";
-  display: inline-block;
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: var(--accent-olive);
-  box-shadow: 0 0 6px rgba(90, 110, 66, 0.5);
-  flex-shrink: 0;
+  background: linear-gradient(180deg, rgba(255,255,255,0.02) 0%, transparent 100%);
 }
 
 .chat-panel__title {
   font-family: "JetBrains Mono", monospace;
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 700;
   color: var(--text-terminal-accent);
   text-transform: uppercase;
-  letter-spacing: 0.15em;
+  letter-spacing: 0.18em;
 }
 
-.chat-panel__content {
+.chat-panel__status {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 8px;
+  font-weight: 600;
+  color: var(--accent-olive);
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  margin-left: auto;
+  opacity: 0.7;
+}
+
+/* The CRT "screen" area */
+.chat-panel__screen {
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  /* Subtle inner screen shadow like a CRT recess */
+  box-shadow:
+    inset 0 2px 8px rgba(0,0,0,0.4),
+    inset 0 0 20px rgba(0,0,0,0.2);
+  margin: 0 6px 6px;
+  border-radius: 4px;
+  background: rgba(0,0,0,0.15);
+}
+
+.chat-panel__screen-content {
+  position: relative;
+  z-index: 1;
   flex: 1;
   overflow: hidden;
   display: flex;
   flex-direction: column;
+}
+
+/* Scanline overlay */
+.scanlines {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 2;
+  opacity: 0.4;
 }
 
 /* ========================================
@@ -611,25 +725,25 @@
 .chat-window__messages {
   flex: 1;
   overflow-y: auto;
-  padding: 14px;
+  padding: 12px 10px;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 8px;
 }
 
 .chat-window__error {
   font-family: "JetBrains Mono", monospace;
-  font-size: 11px;
+  font-size: 10px;
   font-weight: 500;
   color: var(--accent-red);
-  padding: 8px 12px;
-  background: rgba(196, 65, 58, 0.1);
-  border-radius: var(--radius-small);
-  border: 1px solid rgba(196, 65, 58, 0.2);
+  padding: 6px 10px;
+  background: rgba(196, 65, 58, 0.08);
+  border-radius: 3px;
+  border: 1px solid rgba(196, 65, 58, 0.15);
 }
 
 /* ========================================
-   CHAT MESSAGE — Terminal-style
+   CHAT MESSAGE — Terminal-style text
    ======================================== */
 
 .chat-message {
@@ -646,18 +760,18 @@
 
 .chat-message__bubble {
   max-width: 88%;
-  padding: 10px 14px;
-  border-radius: var(--radius-button);
-  font-size: 13px;
-  line-height: 1.6;
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-size: 12px;
+  line-height: 1.65;
   white-space: pre-wrap;
   word-break: break-word;
 }
 
 .chat-message--user .chat-message__bubble {
-  background: var(--bg-terminal-surface);
+  background: rgba(255,255,255,0.06);
   color: var(--text-terminal-bright);
-  border: 1px solid var(--border-terminal);
+  border: 1px solid rgba(255,255,255,0.06);
   border-bottom-right-radius: 2px;
   font-family: "DM Sans", sans-serif;
 }
@@ -668,24 +782,35 @@
   border: none;
   border-bottom-left-radius: 2px;
   font-family: "JetBrains Mono", monospace;
-  font-size: 12px;
+  font-size: 11px;
   line-height: 1.7;
-  padding: 8px 10px;
+  padding: 6px 8px;
+}
+
+/* Command prompt style for assistant */
+.chat-message--assistant .chat-message__bubble::before {
+  content: "> ";
+  color: var(--text-terminal-dim);
+  opacity: 0.5;
 }
 
 .chat-message__bubble--loading {
-  padding: 14px 20px;
+  padding: 12px 16px;
+}
+
+.chat-message__bubble--loading::before {
+  content: none;
 }
 
 /* ========================================
-   CHAT INPUT — Terminal Input Line
+   CHAT INPUT — Terminal prompt
    ======================================== */
 
 .chat-input {
   display: flex;
-  gap: 8px;
-  padding: 10px 14px;
-  border-top: 1px solid var(--border-terminal);
+  gap: 6px;
+  padding: 8px 10px;
+  border-top: 1px solid rgba(255,255,255,0.04);
   align-items: flex-end;
   flex-shrink: 0;
 }
@@ -693,47 +818,48 @@
 .chat-input__textarea {
   flex: 1;
   resize: none;
-  padding: 9px 12px;
-  background: var(--bg-terminal-surface);
-  border: 1px solid var(--border-terminal);
-  border-radius: var(--radius-small);
+  padding: 8px 10px;
+  background: rgba(0,0,0,0.3);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 4px;
   color: var(--text-terminal-bright);
   outline: none;
   transition: border-color 0.15s;
   font-family: "JetBrains Mono", monospace;
-  font-size: 12px;
+  font-size: 11px;
 }
 
 .chat-input__textarea:focus {
-  border-color: var(--text-terminal-dim);
-  box-shadow: 0 0 0 1px var(--text-terminal-dim);
+  border-color: rgba(196, 154, 108, 0.3);
+  box-shadow: 0 0 0 1px rgba(196, 154, 108, 0.15);
 }
 
 .chat-input__textarea::placeholder {
   color: var(--text-terminal-dim);
+  font-size: 10px;
 }
 
 .chat-input__send {
-  width: 34px;
-  height: 34px;
+  width: 32px;
+  height: 32px;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: var(--bg-terminal-surface);
-  border: 1px solid var(--border-terminal);
-  border-radius: var(--radius-small);
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 4px;
   color: var(--text-terminal-accent);
   flex-shrink: 0;
   transition: all 0.15s;
 }
 
 .chat-input__send:hover:not(:disabled) {
-  background: var(--border-terminal);
+  background: rgba(255,255,255,0.08);
   color: var(--text-terminal-bright);
 }
 
 .chat-input__send:disabled {
-  opacity: 0.25;
+  opacity: 0.2;
   cursor: not-allowed;
 }
 
@@ -753,44 +879,50 @@
 }
 
 .modal {
-  background: var(--bg-module);
+  background:
+    linear-gradient(180deg, rgba(255,255,255,0.06) 0%, transparent 40%),
+    var(--bg-module);
   border: 1px solid var(--border-module);
   border-radius: var(--radius-module);
   width: 90%;
-  max-width: 440px;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
+  max-width: 420px;
+  box-shadow:
+    0 20px 60px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(255,255,255,0.3);
 }
 
 .modal__header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 24px 24px 0;
+  padding: 20px 20px 0;
 }
 
 .modal__header h2 {
   font-family: "JetBrains Mono", monospace;
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 800;
   text-transform: uppercase;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.12em;
   color: var(--text-primary);
 }
 
 .modal__close {
-  background: var(--bg-surface);
+  background:
+    linear-gradient(180deg, rgba(255,255,255,0.2) 0%, transparent 100%),
+    var(--bg-surface);
   border: 1px solid var(--border-light);
+  border-bottom: 2px solid var(--border-module);
   color: var(--text-muted);
-  font-size: 18px;
-  width: 28px;
-  height: 28px;
+  font-size: 16px;
+  width: 26px;
+  height: 26px;
   display: flex;
   align-items: center;
   justify-content: center;
   border-radius: 50%;
   line-height: 1;
-  box-shadow: var(--shadow-button);
-  transition: all 0.1s;
+  transition: all 0.08s;
 }
 
 .modal__close:hover {
@@ -800,11 +932,12 @@
 
 .modal__close:active {
   transform: translateY(1px);
-  box-shadow: var(--shadow-button-pressed);
+  border-bottom-width: 1px;
+  box-shadow: inset 0 2px 4px rgba(0,0,0,0.15);
 }
 
 .modal__body {
-  padding: 20px 24px;
+  padding: 18px 20px;
 }
 
 .modal__field {
@@ -815,22 +948,22 @@
 
 .modal__label {
   font-family: "JetBrains Mono", monospace;
-  font-size: 10px;
+  font-size: 9px;
   font-weight: 700;
   color: var(--text-primary);
   text-transform: uppercase;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.1em;
 }
 
 .modal__help {
-  font-size: 12px;
+  font-size: 11px;
   color: var(--text-secondary);
   line-height: 1.5;
 }
 
 .modal__status {
   font-family: "JetBrains Mono", monospace;
-  font-size: 11px;
+  font-size: 10px;
   color: var(--text-secondary);
 }
 
@@ -845,7 +978,7 @@
 }
 
 .modal__input {
-  padding: 10px 12px;
+  padding: 9px 12px;
   background: var(--bg-input);
   border: 1px solid var(--border-light);
   border-radius: var(--radius-button);
@@ -853,7 +986,7 @@
   outline: none;
   transition: border-color 0.15s;
   font-family: "JetBrains Mono", monospace;
-  font-size: 12px;
+  font-size: 11px;
   box-shadow: var(--shadow-inset);
 }
 
@@ -868,7 +1001,7 @@
 
 .modal__message {
   font-family: "JetBrains Mono", monospace;
-  font-size: 11px;
+  font-size: 10px;
   color: var(--accent-olive);
   font-weight: 500;
   margin-top: 8px;
@@ -878,60 +1011,70 @@
   display: flex;
   justify-content: flex-end;
   gap: 8px;
-  padding: 16px 24px 24px;
+  padding: 14px 20px 20px;
 }
 
 /* ========================================
-   BUTTONS — Tactile Physical Buttons
+   BUTTONS — Tactile physical buttons
    ======================================== */
 
 .btn {
-  padding: 8px 18px;
+  padding: 7px 16px;
   border-radius: var(--radius-button);
   font-family: "JetBrains Mono", monospace;
-  font-size: 11px;
+  font-size: 10px;
   font-weight: 700;
   border: 1px solid transparent;
   text-transform: uppercase;
-  letter-spacing: 0.06em;
-  box-shadow: var(--shadow-button);
-  transition: all 0.1s;
+  letter-spacing: 0.08em;
+  transition: all 0.08s;
 }
 
 .btn:active {
   transform: translateY(1px);
-  box-shadow: var(--shadow-button-pressed);
 }
 
 .btn--primary {
-  background: var(--accent-red);
+  background:
+    linear-gradient(180deg, rgba(255,255,255,0.12) 0%, transparent 50%, rgba(0,0,0,0.1) 100%),
+    var(--accent-red);
   color: white;
   border-color: #a83530;
-  border-bottom: 2px solid #8a2b27;
+  border-bottom: 3px solid #8a2b27;
+  box-shadow:
+    0 2px 4px rgba(196,65,58,0.3),
+    inset 0 1px 0 rgba(255,255,255,0.15);
 }
 
 .btn--primary:hover:not(:disabled) {
-  background: #d04840;
+  background:
+    linear-gradient(180deg, rgba(255,255,255,0.18) 0%, transparent 50%, rgba(0,0,0,0.05) 100%),
+    #d04840;
   transform: translateY(-1px);
-  box-shadow: 0 3px 8px rgba(196, 65, 58, 0.3);
+  box-shadow:
+    0 4px 10px rgba(196, 65, 58, 0.35),
+    inset 0 1px 0 rgba(255,255,255,0.2);
 }
 
 .btn--primary:active:not(:disabled) {
-  transform: translateY(1px);
-  box-shadow: var(--shadow-button-pressed);
+  transform: translateY(2px);
   border-bottom-width: 1px;
+  box-shadow: inset 0 2px 6px rgba(0,0,0,0.3);
 }
 
 .btn--primary:disabled {
-  opacity: 0.35;
+  opacity: 0.3;
   cursor: not-allowed;
 }
 
 .btn--secondary {
-  background: var(--bg-surface);
+  background:
+    linear-gradient(180deg, rgba(255,255,255,0.2) 0%, transparent 100%),
+    var(--bg-surface);
   color: var(--text-secondary);
   border: 1px solid var(--border-light);
-  border-bottom: 2px solid var(--border-module);
+  border-bottom: 3px solid var(--border-module);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.4);
 }
 
 .btn--secondary:hover {
@@ -949,14 +1092,15 @@
   bottom: 0;
   left: 0;
   right: 0;
-  padding: 12px 20px;
+  padding: 10px 18px;
   background: var(--accent-amber-glow);
-  border-top: 1px solid rgba(184, 134, 11, 0.25);
+  border-top: 1px solid rgba(184, 134, 11, 0.2);
   font-family: "JetBrains Mono", monospace;
-  font-size: 11px;
+  font-size: 10px;
   font-weight: 500;
   color: var(--accent-amber);
   text-align: center;
+  letter-spacing: 0.02em;
 }
 
 .api-key-banner button {
@@ -964,7 +1108,7 @@
   border: none;
   color: var(--accent-red);
   font-family: "JetBrains Mono", monospace;
-  font-size: 11px;
+  font-size: 10px;
   font-weight: 600;
   text-decoration: underline;
   padding: 0;
@@ -984,8 +1128,8 @@
 }
 
 .spinner--large {
-  width: 36px;
-  height: 36px;
+  width: 32px;
+  height: 32px;
   border-width: 3px;
 }
 
@@ -1001,7 +1145,7 @@
 
 .dot-pulse {
   display: inline-flex;
-  gap: 5px;
+  gap: 4px;
 }
 
 .dot-pulse::before,
@@ -1013,8 +1157,8 @@
 .dot-pulse::before {
   content: "";
   display: inline-block;
-  width: 5px;
-  height: 5px;
+  width: 4px;
+  height: 4px;
   border-radius: 50%;
   background: var(--text-terminal-dim);
   animation: pulse 1.4s infinite ease-in-out both;
@@ -1024,8 +1168,8 @@
 .dot-pulse::after {
   content: "";
   display: inline-block;
-  width: 5px;
-  height: 5px;
+  width: 4px;
+  height: 4px;
   border-radius: 50%;
   background: var(--text-terminal-dim);
   animation: pulse 1.4s infinite ease-in-out both;
@@ -1033,12 +1177,6 @@
 }
 
 @keyframes pulse {
-  0%,
-  80%,
-  100% {
-    opacity: 0.3;
-  }
-  40% {
-    opacity: 1;
-  }
+  0%, 80%, 100% { opacity: 0.3; }
+  40% { opacity: 1; }
 }
