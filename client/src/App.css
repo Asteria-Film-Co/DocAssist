@@ -1,35 +1,96 @@
 /* ========================================
    RESTORE — Braun/Dieter Rams Hardware UI
-   SVG-powered tactile analog modules
+   Clean white aesthetic with hardware details
    ======================================== */
 
 /* ========================================
-   APP LAYOUT — Hardware chassis with modules
+   APP LAYOUT — Main grid structure
    ======================================== */
 
 .app-layout {
-  display: grid;
-  grid-template-columns: 280px 1fr 350px;
-  grid-template-rows: 1fr auto;
+  display: flex;
+  flex-direction: column;
   height: 100vh;
-  padding: 14px;
-  gap: 14px;
+  padding: 8px;
+  gap: 0;
+  overflow: hidden;
+  background: var(--bg-body);
+}
+
+.app-layout__content {
+  display: grid;
+  grid-template-columns: 260px 1fr 320px;
+  gap: 8px;
+  flex: 1;
+  min-height: 0;
   overflow: hidden;
 }
 
-/* --- Module Panels (shared hardware look) --- */
+/* ========================================
+   HARDWARE BARS — Top & bottom equipment bars
+   ======================================== */
 
-.app-layout__sidebar,
-.app-layout__center {
-  background:
-    linear-gradient(180deg, rgba(255,255,255,0.08) 0%, transparent 40%, rgba(0,0,0,0.03) 100%),
-    var(--bg-module);
+.hardware-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 6px 16px;
+  flex-shrink: 0;
+  background: var(--bg-module);
+  min-height: 56px;
+}
+
+.hardware-bar--top {
+  border-radius: var(--radius-module) var(--radius-module) 0 0;
+  border-bottom: 1px solid var(--border-light);
+  margin-bottom: 8px;
+}
+
+.hardware-bar--bottom {
+  border-radius: 0 0 var(--radius-module) var(--radius-module);
+  border-top: 1px solid var(--border-light);
+  margin-top: 8px;
+}
+
+.hardware-bar__left,
+.hardware-bar__right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.hardware-bar__center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+}
+
+.hardware-bar__crosshair {
+  opacity: 0.6;
+  line-height: 0;
+}
+
+/* ========================================
+   MODULE PANELS — Shared styling
+   ======================================== */
+
+.app-layout__sidebar {
+  background: var(--bg-module);
   border-radius: var(--radius-module);
   border: 1px solid var(--border-light);
-  box-shadow:
-    0 1px 0 rgba(255,255,255,0.6),
-    0 4px 16px rgba(0,0,0,0.08),
-    inset 0 1px 0 rgba(255,255,255,0.3);
+  box-shadow: var(--shadow-module);
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.app-layout__center {
+  background: var(--bg-module);
+  border-radius: var(--radius-module);
+  border: 1px solid var(--border-light);
+  box-shadow: var(--shadow-module);
   position: relative;
   overflow: hidden;
   display: flex;
@@ -38,58 +99,21 @@
 
 .app-layout__chat {
   background:
-    linear-gradient(180deg, rgba(40,38,34,1) 0%, rgba(26,25,22,1) 20%),
+    linear-gradient(180deg, rgba(50,48,44,1) 0%, rgba(42,41,38,1) 20%),
     var(--bg-terminal);
   border-radius: var(--radius-module);
-  border: 2px solid #3a3730;
+  border: 1px solid var(--border-terminal);
   box-shadow:
-    0 1px 0 rgba(255,255,255,0.1),
-    0 4px 20px rgba(0,0,0,0.2),
+    0 2px 12px rgba(0,0,0,0.12),
     inset 0 1px 0 rgba(255,255,255,0.03),
-    inset 0 0 30px rgba(0,0,0,0.3);
+    inset 0 0 20px rgba(0,0,0,0.2);
   overflow: hidden;
   display: flex;
   flex-direction: column;
 }
 
-.app-layout__footer {
-  grid-column: 1 / -1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 2px 0;
-}
-
-.app-layout__branding {
-  font-family: "JetBrains Mono", monospace;
-  font-size: 8px;
-  font-weight: 600;
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
-  color: var(--text-muted);
-  opacity: 0.6;
-}
-
 /* ========================================
-   MODULE SCREWS — Corner hardware details
-   ======================================== */
-
-.module-screws {
-  display: flex;
-  justify-content: space-between;
-  padding: 6px 8px 0;
-  flex-shrink: 0;
-  pointer-events: none;
-  opacity: 0.7;
-}
-
-.module-screws--bottom {
-  padding: 0 8px 6px;
-  margin-top: auto;
-}
-
-/* ========================================
-   SIDEBAR — Control Panel Module
+   SIDEBAR — Control Panel
    ======================================== */
 
 .sidebar {
@@ -102,16 +126,24 @@
 .sidebar__header {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  padding: 10px 14px 6px;
+  padding: 16px 16px 12px;
 }
 
+/* Logo — simple bold text like the reference */
 .logo-plate {
-  line-height: 0;
+  line-height: 1;
+}
+
+.logo-plate__text {
+  font-family: "DM Sans", sans-serif;
+  font-size: 22px;
+  font-weight: 900;
+  letter-spacing: 0.02em;
+  color: var(--text-primary);
 }
 
 .settings-knob:hover svg {
-  filter: brightness(1.1);
+  filter: brightness(1.05);
   transform: rotate(-15deg);
   transition: all 0.2s ease;
 }
@@ -125,32 +157,6 @@
   filter: brightness(0.95);
 }
 
-/* Sidebar divider — etched groove line */
-.sidebar__divider {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 2px 14px 8px;
-}
-
-.sidebar__divider-label {
-  font-family: "JetBrains Mono", monospace;
-  font-size: 8px;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.2em;
-  color: var(--text-muted);
-  white-space: nowrap;
-  opacity: 0.8;
-}
-
-.sidebar__divider-line {
-  flex: 1;
-  height: 0;
-  border-top: 1px solid var(--border-groove-dark);
-  border-bottom: 1px solid var(--border-groove-light);
-}
-
 .sidebar__content {
   flex: 1;
   overflow-y: auto;
@@ -159,10 +165,28 @@
 }
 
 .sidebar__footer {
-  display: flex;
-  justify-content: center;
-  padding: 6px 0 2px;
-  opacity: 0.5;
+  padding: 10px 12px 14px;
+  flex-shrink: 0;
+}
+
+.sidebar__hint-btn {
+  width: 100%;
+  padding: 10px 16px;
+  background: var(--bg-white);
+  border: 1px solid var(--border-light);
+  border-radius: 20px;
+  color: var(--text-secondary);
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+}
+
+.sidebar__hint-btn:hover {
+  background: var(--bg-white);
+  color: var(--text-primary);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
 }
 
 /* ========================================
@@ -172,7 +196,7 @@
 .effects-list {
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 3px;
 }
 
 .effects-list__hint {
@@ -187,9 +211,8 @@
 }
 
 /* ========================================
-   EFFECT BUTTON — Physical push buttons
-   These look like real hardware buttons
-   with embossed surfaces and LED indicators
+   EFFECT BUTTON — Clean white pill buttons
+   Matching the reference image style
    ======================================== */
 
 .effect-btn {
@@ -197,44 +220,27 @@
   align-items: center;
   gap: 8px;
   width: 100%;
-  padding: 8px 10px;
-  background:
-    linear-gradient(180deg, rgba(255,255,255,0.3) 0%, transparent 40%, rgba(0,0,0,0.04) 100%),
-    var(--bg-surface);
+  padding: 9px 12px;
+  background: var(--bg-white);
   border: 1px solid var(--border-light);
-  border-bottom: 3px solid var(--border-module);
-  border-radius: var(--radius-button);
+  border-radius: 20px;
   color: var(--text-primary);
   text-align: left;
-  box-shadow:
-    0 2px 4px rgba(0,0,0,0.12),
-    0 1px 1px rgba(0,0,0,0.08),
-    inset 0 1px 0 rgba(255,255,255,0.5);
-  transition: all 0.08s ease;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+  transition: all 0.1s ease;
   position: relative;
 }
 
 .effect-btn:hover:not(:disabled) {
-  background:
-    linear-gradient(180deg, rgba(255,255,255,0.4) 0%, transparent 40%, rgba(0,0,0,0.02) 100%),
-    var(--bg-white);
+  background: #ffffff;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
   transform: translateY(-1px);
-  box-shadow:
-    0 4px 8px rgba(0,0,0,0.12),
-    0 2px 3px rgba(0,0,0,0.06),
-    inset 0 1px 0 rgba(255,255,255,0.6);
 }
 
 .effect-btn:active:not(:disabled) {
-  transform: translateY(2px);
-  border-bottom-width: 1px;
-  border-top: 1px solid var(--border-inset);
-  box-shadow:
-    inset 0 2px 6px rgba(0,0,0,0.2),
-    inset 0 1px 2px rgba(0,0,0,0.1);
-  background:
-    linear-gradient(180deg, rgba(0,0,0,0.04) 0%, transparent 40%, rgba(255,255,255,0.1) 100%),
-    var(--bg-module-inset);
+  transform: translateY(1px);
+  box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);
+  background: var(--bg-surface);
 }
 
 .effect-btn:disabled {
@@ -242,26 +248,17 @@
   cursor: not-allowed;
 }
 
-/* Active (processing) state — button is pressed and latched */
+/* Active (processing) state */
 .effect-btn--active {
-  transform: translateY(2px) !important;
-  border-bottom-width: 1px !important;
-  border-top: 1px solid var(--border-inset) !important;
-  box-shadow:
-    inset 0 2px 6px rgba(0,0,0,0.2),
-    inset 0 1px 2px rgba(0,0,0,0.1) !important;
-  background:
-    linear-gradient(180deg, rgba(0,0,0,0.06) 0%, transparent 40%, rgba(255,255,255,0.05) 100%),
-    var(--bg-module-inset) !important;
+  transform: translateY(1px) !important;
+  box-shadow: inset 0 1px 4px rgba(0,0,0,0.12) !important;
+  background: var(--bg-module-inset) !important;
 }
 
-/* Selected state — highlighted */
+/* Selected state */
 .effect-btn--selected {
   border-color: var(--accent-amber) !important;
-  box-shadow:
-    0 0 0 1px var(--accent-amber),
-    0 2px 4px rgba(0,0,0,0.12),
-    inset 0 1px 0 rgba(255,255,255,0.5) !important;
+  box-shadow: 0 0 0 1px var(--accent-amber), 0 1px 3px rgba(0,0,0,0.06) !important;
 }
 
 .effect-btn--stub {
@@ -290,7 +287,7 @@
 
 .effect-btn__name {
   display: block;
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 600;
   letter-spacing: 0.01em;
 }
@@ -311,16 +308,16 @@
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.12em;
-  padding: 2px 5px;
-  border-radius: 3px;
-  background: var(--bg-module-inset);
+  padding: 2px 6px;
+  border-radius: 10px;
+  background: var(--bg-module);
   color: var(--text-muted);
   flex-shrink: 0;
   border: 1px solid var(--border-light);
 }
 
 /* ========================================
-   CENTER PANEL — Workspace
+   CENTER PANEL — Workspace with dot grid
    ======================================== */
 
 .center-panel {
@@ -329,6 +326,56 @@
   height: 100%;
   position: relative;
   min-height: 0;
+}
+
+.center-panel__bezel {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+  padding: 4px;
+}
+
+.center-panel__screws {
+  display: flex;
+  justify-content: space-between;
+  padding: 4px 6px;
+  flex-shrink: 0;
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+.center-panel__screen {
+  flex: 1;
+  position: relative;
+  border-radius: 6px;
+  border: 3px solid #b8b5ad;
+  background: var(--bg-surface);
+  box-shadow:
+    inset 0 1px 4px rgba(0,0,0,0.06),
+    0 1px 0 rgba(255,255,255,0.4);
+  overflow: hidden;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.center-panel__screen-content {
+  position: relative;
+  z-index: 1;
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Dot grid pattern overlay */
+.dot-grid {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.7;
 }
 
 /* ========================================
@@ -340,34 +387,14 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 16px;
-  border: 2px dashed var(--border-module);
-  border-radius: var(--radius-module);
   cursor: pointer;
   transition: all 0.2s;
-  background:
-    repeating-linear-gradient(
-      45deg,
-      transparent,
-      transparent 20px,
-      rgba(0,0,0,0.01) 20px,
-      rgba(0,0,0,0.01) 40px
-    ),
-    var(--bg-module);
+  position: relative;
+  z-index: 1;
 }
 
 .image-upload:hover {
-  border-color: var(--accent-amber);
-  background:
-    repeating-linear-gradient(
-      45deg,
-      transparent,
-      transparent 20px,
-      rgba(184,134,11,0.02) 20px,
-      rgba(184,134,11,0.02) 40px
-    ),
-    var(--accent-amber-glow);
-  box-shadow: inset 0 0 20px rgba(184,134,11,0.05);
+  background: rgba(184,134,11,0.03);
 }
 
 .image-upload__prompt {
@@ -376,9 +403,9 @@
 }
 
 .image-upload__icon {
-  color: var(--text-muted);
+  color: var(--text-primary);
   margin-bottom: 16px;
-  opacity: 0.6;
+  opacity: 0.5;
 }
 
 .image-upload__text {
@@ -390,10 +417,10 @@
 
 .image-upload__subtext {
   font-family: "JetBrains Mono", monospace;
-  font-size: 9px;
+  font-size: 8px;
   color: var(--text-muted);
   font-weight: 500;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
 }
 
@@ -412,6 +439,8 @@
   flex-direction: column;
   overflow: hidden;
   min-height: 0;
+  position: relative;
+  z-index: 1;
 }
 
 .image-preview__header {
@@ -421,9 +450,7 @@
   padding: 8px 14px;
   border-bottom: 1px solid var(--border-groove-dark);
   flex-shrink: 0;
-  background:
-    linear-gradient(180deg, var(--bg-module) 0%, var(--bg-module-inset) 100%);
-  box-shadow: 0 1px 0 var(--border-groove-light);
+  background: var(--bg-surface);
 }
 
 .image-preview__filename {
@@ -455,33 +482,25 @@
   font-family: "JetBrains Mono", monospace;
   font-size: 9px;
   font-weight: 600;
-  padding: 4px 10px;
-  background:
-    linear-gradient(180deg, rgba(255,255,255,0.2) 0%, transparent 100%),
-    var(--bg-surface);
+  padding: 4px 12px;
+  background: var(--bg-white);
   border: 1px solid var(--border-light);
-  border-bottom: 2px solid var(--border-module);
   color: var(--text-secondary);
-  border-radius: var(--radius-button);
+  border-radius: 12px;
   text-transform: uppercase;
   letter-spacing: 0.06em;
-  box-shadow:
-    0 1px 3px rgba(0,0,0,0.1),
-    inset 0 1px 0 rgba(255,255,255,0.4);
-  transition: all 0.08s;
+  transition: all 0.1s;
 }
 
 .image-preview__clear-btn:hover {
   background: var(--bg-white);
   color: var(--text-primary);
-  transform: translateY(-1px);
-  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  box-shadow: 0 1px 4px rgba(0,0,0,0.08);
 }
 
 .image-preview__clear-btn:active {
   transform: translateY(1px);
-  border-bottom-width: 1px;
-  box-shadow: inset 0 2px 4px rgba(0,0,0,0.15);
+  box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);
 }
 
 .image-preview__images {
@@ -533,9 +552,7 @@
   position: relative;
   border-radius: var(--radius-button);
   overflow: hidden;
-  box-shadow:
-    0 2px 8px rgba(0,0,0,0.1),
-    0 1px 2px rgba(0,0,0,0.06);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
   border: 1px solid var(--border-light);
 }
 
@@ -575,7 +592,7 @@
   width: 100%;
   border-radius: var(--radius-button);
   display: block;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
   border: 1px solid var(--border-light);
 }
 
@@ -619,18 +636,16 @@
   font-size: 9px;
   font-weight: 600;
   padding: 5px 12px;
-  background: var(--bg-surface);
+  background: var(--bg-white);
   border: 1px solid var(--border-light);
-  border-bottom: 2px solid var(--border-module);
   color: var(--text-secondary);
-  border-radius: var(--radius-button);
+  border-radius: 12px;
   text-transform: uppercase;
   letter-spacing: 0.06em;
 }
 
 /* ========================================
-   CHAT PANEL — CRT Terminal Module
-   The dark module that houses Atlas
+   CHAT PANEL — Dark Terminal Module
    ======================================== */
 
 .chat-panel {
@@ -649,32 +664,28 @@
 
 .chat-panel__header {
   padding: 12px 14px 10px;
-  border-bottom: 1px solid #2a2825;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
   flex-shrink: 0;
   display: flex;
   align-items: center;
   gap: 8px;
-  background: linear-gradient(180deg, rgba(255,255,255,0.02) 0%, transparent 100%);
 }
 
 .chat-panel__title {
-  font-family: "JetBrains Mono", monospace;
-  font-size: 11px;
-  font-weight: 700;
-  color: var(--text-terminal-accent);
-  text-transform: uppercase;
-  letter-spacing: 0.18em;
+  font-family: "DM Sans", sans-serif;
+  font-size: 14px;
+  font-weight: 800;
+  color: var(--bg-white);
+  letter-spacing: 0.12em;
 }
 
 .chat-panel__status {
   font-family: "JetBrains Mono", monospace;
-  font-size: 8px;
+  font-size: 9px;
   font-weight: 600;
-  color: var(--accent-olive);
-  text-transform: uppercase;
+  color: var(--text-muted);
   letter-spacing: 0.15em;
   margin-left: auto;
-  opacity: 0.7;
 }
 
 /* The CRT "screen" area */
@@ -684,13 +695,13 @@
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  /* Subtle inner screen shadow like a CRT recess */
   box-shadow:
-    inset 0 2px 8px rgba(0,0,0,0.4),
-    inset 0 0 20px rgba(0,0,0,0.2);
-  margin: 0 6px 6px;
+    inset 0 2px 8px rgba(0,0,0,0.3),
+    inset 0 0 15px rgba(0,0,0,0.15);
+  margin: 0 8px 8px;
   border-radius: 4px;
-  background: rgba(0,0,0,0.15);
+  background: rgba(0,0,0,0.2);
+  border: 1px solid rgba(255,255,255,0.03);
 }
 
 .chat-panel__screen-content {
@@ -708,7 +719,7 @@
   inset: 0;
   pointer-events: none;
   z-index: 2;
-  opacity: 0.4;
+  opacity: 0.3;
 }
 
 /* ========================================
@@ -870,7 +881,7 @@
 .modal-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.4);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -879,16 +890,12 @@
 }
 
 .modal {
-  background:
-    linear-gradient(180deg, rgba(255,255,255,0.06) 0%, transparent 40%),
-    var(--bg-module);
-  border: 1px solid var(--border-module);
+  background: var(--bg-white);
+  border: 1px solid var(--border-light);
   border-radius: var(--radius-module);
   width: 90%;
   max-width: 420px;
-  box-shadow:
-    0 20px 60px rgba(0, 0, 0, 0.3),
-    inset 0 1px 0 rgba(255,255,255,0.3);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
 }
 
 .modal__header {
@@ -899,20 +906,16 @@
 }
 
 .modal__header h2 {
-  font-family: "JetBrains Mono", monospace;
-  font-size: 11px;
+  font-family: "DM Sans", sans-serif;
+  font-size: 14px;
   font-weight: 800;
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.06em;
   color: var(--text-primary);
 }
 
 .modal__close {
-  background:
-    linear-gradient(180deg, rgba(255,255,255,0.2) 0%, transparent 100%),
-    var(--bg-surface);
+  background: var(--bg-surface);
   border: 1px solid var(--border-light);
-  border-bottom: 2px solid var(--border-module);
   color: var(--text-muted);
   font-size: 16px;
   width: 26px;
@@ -922,18 +925,12 @@
   justify-content: center;
   border-radius: 50%;
   line-height: 1;
-  transition: all 0.08s;
+  transition: all 0.1s;
 }
 
 .modal__close:hover {
   color: var(--text-primary);
-  transform: translateY(-1px);
-}
-
-.modal__close:active {
-  transform: translateY(1px);
-  border-bottom-width: 1px;
-  box-shadow: inset 0 2px 4px rgba(0,0,0,0.15);
+  background: var(--bg-module);
 }
 
 .modal__body {
@@ -1015,19 +1012,19 @@
 }
 
 /* ========================================
-   BUTTONS — Tactile physical buttons
+   BUTTONS
    ======================================== */
 
 .btn {
   padding: 7px 16px;
-  border-radius: var(--radius-button);
+  border-radius: 20px;
   font-family: "JetBrains Mono", monospace;
   font-size: 10px;
   font-weight: 700;
   border: 1px solid transparent;
   text-transform: uppercase;
   letter-spacing: 0.08em;
-  transition: all 0.08s;
+  transition: all 0.1s;
 }
 
 .btn:active {
@@ -1035,31 +1032,21 @@
 }
 
 .btn--primary {
-  background:
-    linear-gradient(180deg, rgba(255,255,255,0.12) 0%, transparent 50%, rgba(0,0,0,0.1) 100%),
-    var(--accent-red);
+  background: var(--accent-red);
   color: white;
   border-color: #a83530;
-  border-bottom: 3px solid #8a2b27;
-  box-shadow:
-    0 2px 4px rgba(196,65,58,0.3),
-    inset 0 1px 0 rgba(255,255,255,0.15);
+  box-shadow: 0 2px 6px rgba(196,65,58,0.2);
 }
 
 .btn--primary:hover:not(:disabled) {
-  background:
-    linear-gradient(180deg, rgba(255,255,255,0.18) 0%, transparent 50%, rgba(0,0,0,0.05) 100%),
-    #d04840;
+  background: #d04840;
   transform: translateY(-1px);
-  box-shadow:
-    0 4px 10px rgba(196, 65, 58, 0.35),
-    inset 0 1px 0 rgba(255,255,255,0.2);
+  box-shadow: 0 4px 10px rgba(196, 65, 58, 0.3);
 }
 
 .btn--primary:active:not(:disabled) {
-  transform: translateY(2px);
-  border-bottom-width: 1px;
-  box-shadow: inset 0 2px 6px rgba(0,0,0,0.3);
+  transform: translateY(1px);
+  box-shadow: inset 0 2px 4px rgba(0,0,0,0.2);
 }
 
 .btn--primary:disabled {
@@ -1068,13 +1055,9 @@
 }
 
 .btn--secondary {
-  background:
-    linear-gradient(180deg, rgba(255,255,255,0.2) 0%, transparent 100%),
-    var(--bg-surface);
+  background: var(--bg-surface);
   color: var(--text-secondary);
   border: 1px solid var(--border-light);
-  border-bottom: 3px solid var(--border-module);
-  box-shadow: inset 0 1px 0 rgba(255,255,255,0.4);
 }
 
 .btn--secondary:hover {

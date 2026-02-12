@@ -9,19 +9,19 @@
 }
 
 :root {
-  /* Braun/Dieter Rams inspired palette */
-  --bg-body: #d6d1c4;
-  --bg-module: #e8e4d9;
-  --bg-module-inset: #dedad0;
-  --bg-surface: #f2efe8;
-  --bg-input: #f7f5f0;
-  --bg-white: #faf9f5;
-  --bg-terminal: #1a1916;
-  --bg-terminal-surface: #232220;
+  /* Clean white/light palette — Braun/Dieter Rams */
+  --bg-body: #e8e6e0;
+  --bg-module: #f0eee8;
+  --bg-module-inset: #e8e5de;
+  --bg-surface: #f5f3ee;
+  --bg-input: #faf9f6;
+  --bg-white: #ffffff;
+  --bg-terminal: #2a2926;
+  --bg-terminal-surface: #333230;
 
-  --text-primary: #1a1816;
-  --text-secondary: #5c564a;
-  --text-muted: #8a8478;
+  --text-primary: #1a1a1a;
+  --text-secondary: #5a5856;
+  --text-muted: #9a9894;
   --text-terminal: #d4c8a0;
   --text-terminal-bright: #e8ddb8;
   --text-terminal-dim: #7a7260;
@@ -34,20 +34,20 @@
   --accent-amber-glow: rgba(184, 134, 11, 0.15);
   --accent-blue: #3a5a8c;
 
-  --border-module: #b8b3a6;
-  --border-light: #ccc7ba;
-  --border-inset: #a8a396;
-  --border-groove-light: #d9d5ca;
-  --border-groove-dark: #a5a095;
-  --border-terminal: #3a3830;
+  --border-module: #d0cdc5;
+  --border-light: #dddbd5;
+  --border-inset: #c0bdb5;
+  --border-groove-light: #eae8e2;
+  --border-groove-dark: #c5c2ba;
+  --border-terminal: #444240;
 
-  --shadow-raised: 0 2px 6px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.08);
-  --shadow-button: 0 2px 4px rgba(0,0,0,0.15), 0 1px 1px rgba(0,0,0,0.1);
-  --shadow-button-pressed: inset 0 2px 4px rgba(0,0,0,0.2);
-  --shadow-module: 0 1px 0 rgba(255,255,255,0.5), 0 4px 16px rgba(0,0,0,0.08);
-  --shadow-inset: inset 0 1px 3px rgba(0,0,0,0.12);
+  --shadow-raised: 0 2px 6px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.05);
+  --shadow-button: 0 1px 3px rgba(0,0,0,0.1), 0 1px 1px rgba(0,0,0,0.06);
+  --shadow-button-pressed: inset 0 2px 4px rgba(0,0,0,0.15);
+  --shadow-module: 0 1px 0 rgba(255,255,255,0.6), 0 2px 12px rgba(0,0,0,0.06);
+  --shadow-inset: inset 0 1px 3px rgba(0,0,0,0.08);
 
-  --radius-module: 12px;
+  --radius-module: 10px;
   --radius-button: 8px;
   --radius-small: 4px;
 }

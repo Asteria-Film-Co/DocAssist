@@ -1,9 +1,35 @@
+import type { ReactElement } from "react";
+
 interface SettingsKnobProps {
   size?: number;
   onClick?: () => void;
 }
 
-export function SettingsKnob({ size = 32, onClick }: SettingsKnobProps) {
+export function SettingsKnob({ size = 48, onClick }: SettingsKnobProps) {
+  const id = `knob-${Math.random().toString(36).slice(2, 7)}`;
+  const c = size / 2;
+  const outerR = c * 0.92;
+  const faceR = c * 0.72;
+
+  // Knurled edge ticks
+  const ticks: ReactElement[] = [];
+  const tickCount = 36;
+  for (let i = 0; i < tickCount; i++) {
+    const angle = (i / tickCount) * Math.PI * 2;
+    const x1 = c + (outerR - 0.5) * Math.cos(angle);
+    const y1 = c + (outerR - 0.5) * Math.sin(angle);
+    const x2 = c + (outerR - 3) * Math.cos(angle);
+    const y2 = c + (outerR - 3) * Math.sin(angle);
+    ticks.push(
+      <line
+        key={i}
+        x1={x1} y1={y1} x2={x2} y2={y2}
+        stroke="#b0ada5"
+        strokeWidth="0.6"
+      />
+    );
+  }
+
   return (
     <button
       className="settings-knob"
@@ -11,71 +37,53 @@ export function SettingsKnob({ size = 32, onClick }: SettingsKnobProps) {
       title="Settings"
       style={{ background: "none", border: "none", padding: 0, cursor: "pointer" }}
     >
-      <svg width={size} height={size} viewBox="0 0 40 40">
+      <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`}>
         <defs>
-          <radialGradient id="knob-face" cx="40%" cy="35%">
-            <stop offset="0%" stopColor="#d8d0c0" />
-            <stop offset="50%" stopColor="#b8b0a0" />
-            <stop offset="100%" stopColor="#989080" />
+          {/* Brushed aluminum gradient — linear to simulate brushed metal */}
+          <linearGradient id={`${id}-face`} x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stopColor="#e8e6e0" />
+            <stop offset="25%" stopColor="#d5d2ca" />
+            <stop offset="50%" stopColor="#e0ddd6" />
+            <stop offset="75%" stopColor="#ccc9c0" />
+            <stop offset="100%" stopColor="#d8d5cd" />
+          </linearGradient>
+          <radialGradient id={`${id}-edge-shadow`} cx="50%" cy="55%">
+            <stop offset="60%" stopColor="transparent" />
+            <stop offset="100%" stopColor="rgba(0,0,0,0.12)" />
           </radialGradient>
-          <radialGradient id="knob-shadow" cx="50%" cy="50%">
-            <stop offset="70%" stopColor="transparent" />
-            <stop offset="100%" stopColor="rgba(0,0,0,0.15)" />
+          {/* Specular highlight */}
+          <radialGradient id={`${id}-highlight`} cx="38%" cy="35%">
+            <stop offset="0%" stopColor="rgba(255,255,255,0.35)" />
+            <stop offset="60%" stopColor="rgba(255,255,255,0)" />
           </radialGradient>
         </defs>
 
         {/* Drop shadow */}
-        <circle cx="20" cy="21" r="16" fill="rgba(0,0,0,0.12)" />
+        <circle cx={c} cy={c + 1.5} r={outerR} fill="rgba(0,0,0,0.08)" />
 
         {/* Outer rim */}
-        <circle cx="20" cy="20" r="16" fill="#706858" />
+        <circle cx={c} cy={c} r={outerR} fill="#a09d95" />
 
         {/* Knurled edge ticks */}
-        {Array.from({ length: 24 }).map((_, i) => {
-          const angle = (i * 15 * Math.PI) / 180;
-          const x1 = 20 + 15.5 * Math.cos(angle);
-          const y1 = 20 + 15.5 * Math.sin(angle);
-          const x2 = 20 + 13.5 * Math.cos(angle);
-          const y2 = 20 + 13.5 * Math.sin(angle);
-          return (
-            <line
-              key={i}
-              x1={x1}
-              y1={y1}
-              x2={x2}
-              y2={y2}
-              stroke="#585048"
-              strokeWidth="0.8"
-            />
-          );
-        })}
+        {ticks}
 
-        {/* Face */}
-        <circle cx="20" cy="20" r="13" fill="url(#knob-face)" />
+        {/* Face with brushed aluminum */}
+        <circle cx={c} cy={c} r={faceR} fill={`url(#${id}-face)`} />
+        <circle cx={c} cy={c} r={faceR} fill={`url(#${id}-edge-shadow)`} />
 
-        {/* Edge shadow for depth */}
-        <circle cx="20" cy="20" r="13" fill="url(#knob-shadow)" />
+        {/* Specular highlight */}
+        <circle cx={c} cy={c} r={faceR} fill={`url(#${id}-highlight)`} />
 
-        {/* Top highlight */}
-        <ellipse cx="17" cy="16" rx="6" ry="4" fill="white" opacity="0.12" />
+        {/* Rim edge */}
+        <circle cx={c} cy={c} r={faceR} fill="none" stroke="rgba(255,255,255,0.15)" strokeWidth="0.5" />
 
-        {/* Pointer notch */}
+        {/* Pointer notch — red indicator */}
         <line
-          x1="20"
-          y1="8"
-          x2="20"
-          y2="13"
-          stroke="#504838"
-          strokeWidth="2"
-          strokeLinecap="round"
-        />
-        {/* Notch shadow */}
-        <line
-          x1="20"
-          y1="8.5"
-          x2="20"
-          y2="13.5"
-          stroke="rgba(0,0,0,0.1)"
+          x1={c}
+          y1={c - faceR + 3}
+          x2={c}
+          y2={c - faceR + 8}
+          stroke="#c4413a"
           strokeWidth="2"
           strokeLinecap="round"
         />
