@@ -9,45 +9,19 @@
 }
 
 :root {
-  /* Braun/Dieter Rams inspired palette */
-  --bg-body: #d6d1c4;
-  --bg-module: #e8e4d9;
-  --bg-module-inset: #dedad0;
-  --bg-surface: #f2efe8;
-  --bg-input: #f7f5f0;
-  --bg-white: #faf9f5;
-  --bg-terminal: #1a1916;
-  --bg-terminal-surface: #232220;
-
-  --text-primary: #1a1816;
+  --text-primary: #2a2520;
   --text-secondary: #5c564a;
   --text-muted: #8a8478;
-  --text-terminal: #d4c8a0;
-  --text-terminal-bright: #e8ddb8;
-  --text-terminal-dim: #7a7260;
-  --text-terminal-accent: #c49a6c;
-
+  --text-terminal: #c8bfa0;
+  --text-terminal-bright: #e0d8c0;
+  --text-terminal-dim: #6a6458;
+  --text-terminal-accent: #b8946a;
   --accent-red: #c4413a;
-  --accent-red-glow: rgba(196, 65, 58, 0.3);
   --accent-olive: #5a6e42;
-  --accent-amber: #b8860b;
-  --accent-amber-glow: rgba(184, 134, 11, 0.15);
-  --accent-blue: #3a5a8c;
-
-  --border-module: #b8b3a6;
-  --border-light: #ccc7ba;
-  --border-inset: #a8a396;
-  --border-groove-light: #d9d5ca;
-  --border-groove-dark: #a5a095;
-  --border-terminal: #3a3830;
-
-  --shadow-raised: 0 2px 6px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.08);
-  --shadow-button: 0 2px 4px rgba(0,0,0,0.15), 0 1px 1px rgba(0,0,0,0.1);
-  --shadow-button-pressed: inset 0 2px 4px rgba(0,0,0,0.2);
-  --shadow-module: 0 1px 0 rgba(255,255,255,0.5), 0 4px 16px rgba(0,0,0,0.08);
-  --shadow-inset: inset 0 1px 3px rgba(0,0,0,0.12);
-
-  --radius-module: 12px;
+  --accent-amber: #d4a00a;
+  --led-red: #ff3030;
+  --led-amber: #ffaa00;
+  --led-green: #40cc40;
   --radius-button: 8px;
   --radius-small: 4px;
 }
@@ -63,7 +37,7 @@ body {
   font-size: 14px;
   line-height: 1.5;
   color: var(--text-primary);
-  background-color: var(--bg-body);
+  background: #ffffff;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -73,12 +47,8 @@ body {
 }
 
 a {
-  color: var(--accent-blue);
+  color: #3a5a8c;
   text-decoration: none;
-}
-
-a:hover {
-  color: var(--accent-red);
 }
 
 button {
@@ -93,18 +63,5 @@ textarea {
 }
 
 ::-webkit-scrollbar {
-  width: 5px;
-}
-
-::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-::-webkit-scrollbar-thumb {
-  background: var(--border-module);
-  border-radius: 3px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: var(--text-muted);
+  width: 0px;
 }

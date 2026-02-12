@@ -1,5 +1,4 @@
 import type { Effect } from "../../types/effects";
-import { Led } from "../hardware/Led";
 
 interface EffectButtonProps {
   effect: Effect;
@@ -18,12 +17,6 @@ export function EffectButton({
 }: EffectButtonProps) {
   const isStub = effect.apiType === "stub";
 
-  const ledColor = isActive
-    ? "red"
-    : isSelected && !isActive
-      ? "amber"
-      : "off";
-
   return (
     <button
       className={`effect-btn ${isActive ? "effect-btn--active" : ""} ${isSelected && !isActive ? "effect-btn--selected" : ""} ${isStub ? "effect-btn--stub" : ""}`}
@@ -31,22 +24,20 @@ export function EffectButton({
       disabled={disabled || isStub}
       title={effect.description}
     >
-      <span className="effect-btn__led">
-        <Led color={ledColor} size={12} pulse={isActive} />
-      </span>
-      <div className="effect-btn__text">
-        <span className="effect-btn__name">{effect.name}</span>
-        {isActive && (
-          <span className="effect-btn__status">Processing...</span>
-        )}
-      </div>
-      <span className="effect-btn__badge">
-        {effect.apiType === "veo"
-          ? "Video"
-          : effect.apiType === "imagen"
-            ? "Image"
-            : "Soon"}
-      </span>
+      {/* LED indicator that lights up */}
+      <span
+        className={`effect-btn__led ${
+          isActive
+            ? "effect-btn__led--red"
+            : isSelected
+              ? "effect-btn__led--amber"
+              : ""
+        }`}
+      />
+      <span className="effect-btn__name">{effect.name}</span>
+      {isActive && (
+        <span className="effect-btn__status">Processing...</span>
+      )}
     </button>
   );
 }

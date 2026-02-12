@@ -1,178 +1,87 @@
 /* ========================================
-   RESTORE — Braun/Dieter Rams Hardware UI
-   SVG-powered tactile analog modules
+   RESTORE — Background Image Hardware UI
+   The background image IS the interface.
+   Interactive elements are transparent
+   overlays positioned on top.
    ======================================== */
 
 /* ========================================
-   APP LAYOUT — Hardware chassis with modules
+   APP LAYOUT — Full-bleed background image
    ======================================== */
 
 .app-layout {
-  display: grid;
-  grid-template-columns: 280px 1fr 350px;
-  grid-template-rows: 1fr auto;
+  width: 100vw;
   height: 100vh;
-  padding: 14px;
-  gap: 14px;
+  background-image: url('/RestoreUI_v1_test.jpeg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  display: grid;
+  /* Match the 3-column layout in the background image */
+  /* Left panel ~26%, Center ~44%, Right ~26%, with gaps */
+  grid-template-columns: 26.5% 1fr 27%;
+  grid-template-rows: 1fr;
+  padding: 1.2% 1.2%;
+  gap: 1.4%;
   overflow: hidden;
 }
 
-/* --- Module Panels (shared hardware look) --- */
+/* ========================================
+   SIDEBAR — Transparent overlay on left panel
+   ======================================== */
 
-.app-layout__sidebar,
-.app-layout__center {
-  background:
-    linear-gradient(180deg, rgba(255,255,255,0.08) 0%, transparent 40%, rgba(0,0,0,0.03) 100%),
-    var(--bg-module);
-  border-radius: var(--radius-module);
-  border: 1px solid var(--border-light);
-  box-shadow:
-    0 1px 0 rgba(255,255,255,0.6),
-    0 4px 16px rgba(0,0,0,0.08),
-    inset 0 1px 0 rgba(255,255,255,0.3);
-  position: relative;
+.app-layout__sidebar {
+  background: transparent;
   overflow: hidden;
   display: flex;
   flex-direction: column;
 }
-
-.app-layout__chat {
-  background:
-    linear-gradient(180deg, rgba(40,38,34,1) 0%, rgba(26,25,22,1) 20%),
-    var(--bg-terminal);
-  border-radius: var(--radius-module);
-  border: 2px solid #3a3730;
-  box-shadow:
-    0 1px 0 rgba(255,255,255,0.1),
-    0 4px 20px rgba(0,0,0,0.2),
-    inset 0 1px 0 rgba(255,255,255,0.03),
-    inset 0 0 30px rgba(0,0,0,0.3);
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-}
-
-.app-layout__footer {
-  grid-column: 1 / -1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 2px 0;
-}
-
-.app-layout__branding {
-  font-family: "JetBrains Mono", monospace;
-  font-size: 8px;
-  font-weight: 600;
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
-  color: var(--text-muted);
-  opacity: 0.6;
-}
-
-/* ========================================
-   MODULE SCREWS — Corner hardware details
-   ======================================== */
-
-.module-screws {
-  display: flex;
-  justify-content: space-between;
-  padding: 6px 8px 0;
-  flex-shrink: 0;
-  pointer-events: none;
-  opacity: 0.7;
-}
-
-.module-screws--bottom {
-  padding: 0 8px 6px;
-  margin-top: auto;
-}
-
-/* ========================================
-   SIDEBAR — Control Panel Module
-   ======================================== */
 
 .sidebar {
   display: flex;
   flex-direction: column;
   height: 100%;
-  min-height: 0;
+  position: relative;
 }
 
-.sidebar__header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 10px 14px 6px;
+/* Invisible hotspot over the settings knob area in the image */
+.sidebar__settings-hotspot {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 36px;
+  height: 36px;
+  background: transparent;
+  border: none;
+  border-radius: 50%;
+  z-index: 10;
+  cursor: pointer;
 }
 
-.logo-plate {
-  line-height: 0;
-}
-
-.settings-knob:hover svg {
-  filter: brightness(1.1);
-  transform: rotate(-15deg);
-  transition: all 0.2s ease;
-}
-
-.settings-knob svg {
-  transition: all 0.2s ease;
-}
-
-.settings-knob:active svg {
-  transform: rotate(-30deg);
-  filter: brightness(0.95);
-}
-
-/* Sidebar divider — etched groove line */
-.sidebar__divider {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 2px 14px 8px;
-}
-
-.sidebar__divider-label {
-  font-family: "JetBrains Mono", monospace;
-  font-size: 8px;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.2em;
-  color: var(--text-muted);
-  white-space: nowrap;
-  opacity: 0.8;
-}
-
-.sidebar__divider-line {
-  flex: 1;
-  height: 0;
-  border-top: 1px solid var(--border-groove-dark);
-  border-bottom: 1px solid var(--border-groove-light);
+.sidebar__settings-hotspot:hover {
+  background: rgba(0,0,0,0.05);
 }
 
 .sidebar__content {
+  /* Push buttons down to align with the button area in the image */
+  /* The image has: RESTORE title, decorative elements, then buttons */
+  padding-top: 28%;
+  padding-left: 6%;
+  padding-right: 6%;
   flex: 1;
   overflow-y: auto;
-  padding: 0 10px 6px;
-  min-height: 0;
-}
-
-.sidebar__footer {
   display: flex;
-  justify-content: center;
-  padding: 6px 0 2px;
-  opacity: 0.5;
+  flex-direction: column;
 }
 
 /* ========================================
-   EFFECTS LIST
+   EFFECTS LIST — Button Stack
    ======================================== */
 
 .effects-list {
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 2.5%;
 }
 
 .effects-list__hint {
@@ -181,60 +90,39 @@
   font-family: "JetBrains Mono", monospace;
   font-size: 10px;
   font-weight: 500;
-  padding: 20px 12px;
-  margin-top: 8px;
+  padding: 16px 8px;
   letter-spacing: 0.02em;
 }
 
 /* ========================================
-   EFFECT BUTTON — Physical push buttons
-   These look like real hardware buttons
-   with embossed surfaces and LED indicators
+   EFFECT BUTTON — Transparent over image buttons
+   The background image provides the button visuals.
+   We overlay transparent clickable areas with
+   LED indicators that light up.
    ======================================== */
 
 .effect-btn {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
   width: 100%;
-  padding: 8px 10px;
-  background:
-    linear-gradient(180deg, rgba(255,255,255,0.3) 0%, transparent 40%, rgba(0,0,0,0.04) 100%),
-    var(--bg-surface);
-  border: 1px solid var(--border-light);
-  border-bottom: 3px solid var(--border-module);
+  padding: 7px 10px;
+  background: transparent;
+  border: none;
   border-radius: var(--radius-button);
   color: var(--text-primary);
   text-align: left;
-  box-shadow:
-    0 2px 4px rgba(0,0,0,0.12),
-    0 1px 1px rgba(0,0,0,0.08),
-    inset 0 1px 0 rgba(255,255,255,0.5);
-  transition: all 0.08s ease;
+  transition: all 0.1s ease;
   position: relative;
+  cursor: pointer;
 }
 
 .effect-btn:hover:not(:disabled) {
-  background:
-    linear-gradient(180deg, rgba(255,255,255,0.4) 0%, transparent 40%, rgba(0,0,0,0.02) 100%),
-    var(--bg-white);
-  transform: translateY(-1px);
-  box-shadow:
-    0 4px 8px rgba(0,0,0,0.12),
-    0 2px 3px rgba(0,0,0,0.06),
-    inset 0 1px 0 rgba(255,255,255,0.6);
+  background: rgba(0,0,0,0.03);
 }
 
 .effect-btn:active:not(:disabled) {
-  transform: translateY(2px);
-  border-bottom-width: 1px;
-  border-top: 1px solid var(--border-inset);
-  box-shadow:
-    inset 0 2px 6px rgba(0,0,0,0.2),
-    inset 0 1px 2px rgba(0,0,0,0.1);
-  background:
-    linear-gradient(180deg, rgba(0,0,0,0.04) 0%, transparent 40%, rgba(255,255,255,0.1) 100%),
-    var(--bg-module-inset);
+  background: rgba(0,0,0,0.06);
 }
 
 .effect-btn:disabled {
@@ -242,61 +130,58 @@
   cursor: not-allowed;
 }
 
-/* Active (processing) state — button is pressed and latched */
 .effect-btn--active {
-  transform: translateY(2px) !important;
-  border-bottom-width: 1px !important;
-  border-top: 1px solid var(--border-inset) !important;
-  box-shadow:
-    inset 0 2px 6px rgba(0,0,0,0.2),
-    inset 0 1px 2px rgba(0,0,0,0.1) !important;
-  background:
-    linear-gradient(180deg, rgba(0,0,0,0.06) 0%, transparent 40%, rgba(255,255,255,0.05) 100%),
-    var(--bg-module-inset) !important;
+  background: rgba(0,0,0,0.04);
 }
 
-/* Selected state — highlighted */
 .effect-btn--selected {
-  border-color: var(--accent-amber) !important;
-  box-shadow:
-    0 0 0 1px var(--accent-amber),
-    0 2px 4px rgba(0,0,0,0.12),
-    inset 0 1px 0 rgba(255,255,255,0.5) !important;
+  background: rgba(0,0,0,0.03);
 }
 
 .effect-btn--stub {
   opacity: 0.25;
 }
 
+/* LED Indicator — the little light that turns on */
 .effect-btn__led {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #c8c0b0;
   flex-shrink: 0;
-  line-height: 0;
+  transition: all 0.2s ease;
+  box-shadow: inset 0 1px 2px rgba(0,0,0,0.2);
 }
 
-/* Pulse animation for active LED */
-.led--pulse {
-  animation: led-pulse 1.5s ease-in-out infinite;
+.effect-btn__led--red {
+  background: var(--led-red);
+  box-shadow:
+    0 0 4px var(--led-red),
+    0 0 10px rgba(255,48,48,0.4),
+    0 0 20px rgba(255,48,48,0.15);
+  animation: led-glow 1.5s ease-in-out infinite;
 }
 
-@keyframes led-pulse {
+.effect-btn__led--amber {
+  background: var(--led-amber);
+  box-shadow:
+    0 0 4px var(--led-amber),
+    0 0 10px rgba(255,170,0,0.4);
+}
+
+@keyframes led-glow {
   0%, 100% { opacity: 1; }
-  50% { opacity: 0.6; }
-}
-
-.effect-btn__text {
-  flex: 1;
-  min-width: 0;
+  50% { opacity: 0.5; }
 }
 
 .effect-btn__name {
-  display: block;
   font-size: 12px;
   font-weight: 600;
   letter-spacing: 0.01em;
+  flex: 1;
 }
 
 .effect-btn__status {
-  display: block;
   font-family: "JetBrains Mono", monospace;
   font-size: 9px;
   color: var(--accent-red);
@@ -305,34 +190,27 @@
   text-transform: uppercase;
 }
 
-.effect-btn__badge {
-  font-family: "JetBrains Mono", monospace;
-  font-size: 7px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
-  padding: 2px 5px;
-  border-radius: 3px;
-  background: var(--bg-module-inset);
-  color: var(--text-muted);
-  flex-shrink: 0;
-  border: 1px solid var(--border-light);
-}
-
 /* ========================================
-   CENTER PANEL — Workspace
+   CENTER PANEL — Transparent overlay
    ======================================== */
+
+.app-layout__center {
+  background: transparent;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  border-radius: 12px;
+}
 
 .center-panel {
   display: flex;
   flex-direction: column;
   height: 100%;
   position: relative;
-  min-height: 0;
 }
 
 /* ========================================
-   IMAGE UPLOAD — Drop Zone
+   IMAGE UPLOAD — Drop zone over center area
    ======================================== */
 
 .image-upload {
@@ -340,61 +218,35 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 16px;
-  border: 2px dashed var(--border-module);
-  border-radius: var(--radius-module);
+  /* Inset to align with the screen area in the image */
+  margin: 5% 4% 4%;
+  border: none;
+  border-radius: 8px;
   cursor: pointer;
   transition: all 0.2s;
-  background:
-    repeating-linear-gradient(
-      45deg,
-      transparent,
-      transparent 20px,
-      rgba(0,0,0,0.01) 20px,
-      rgba(0,0,0,0.01) 40px
-    ),
-    var(--bg-module);
+  background: transparent;
 }
 
 .image-upload:hover {
-  border-color: var(--accent-amber);
-  background:
-    repeating-linear-gradient(
-      45deg,
-      transparent,
-      transparent 20px,
-      rgba(184,134,11,0.02) 20px,
-      rgba(184,134,11,0.02) 40px
-    ),
-    var(--accent-amber-glow);
-  box-shadow: inset 0 0 20px rgba(184,134,11,0.05);
+  background: rgba(0,0,0,0.02);
 }
 
 .image-upload__prompt {
   text-align: center;
   padding: 48px 40px;
+  opacity: 0; /* Hidden — the background image already shows the prompt text */
 }
 
 .image-upload__icon {
-  color: var(--text-muted);
-  margin-bottom: 16px;
-  opacity: 0.6;
+  display: none;
 }
 
 .image-upload__text {
-  font-size: 14px;
-  font-weight: 600;
-  color: var(--text-primary);
-  margin-bottom: 8px;
+  display: none;
 }
 
 .image-upload__subtext {
-  font-family: "JetBrains Mono", monospace;
-  font-size: 9px;
-  color: var(--text-muted);
-  font-weight: 500;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
+  display: none;
 }
 
 .image-upload__loading {
@@ -402,8 +254,12 @@
   color: var(--text-secondary);
 }
 
+.image-upload__loading .spinner {
+  margin: 0 auto 12px;
+}
+
 /* ========================================
-   IMAGE PREVIEW
+   IMAGE PREVIEW — Over center screen area
    ======================================== */
 
 .image-preview {
@@ -411,19 +267,19 @@
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  min-height: 0;
+  margin: 4% 3.5% 3%;
 }
 
 .image-preview__header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 8px 14px;
-  border-bottom: 1px solid var(--border-groove-dark);
+  padding: 6px 10px;
   flex-shrink: 0;
-  background:
-    linear-gradient(180deg, var(--bg-module) 0%, var(--bg-module-inset) 100%);
-  box-shadow: 0 1px 0 var(--border-groove-light);
+  background: rgba(255,255,255,0.5);
+  backdrop-filter: blur(8px);
+  border-radius: 6px;
+  margin-bottom: 8px;
 }
 
 .image-preview__filename {
@@ -434,7 +290,6 @@
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  letter-spacing: 0.02em;
 }
 
 .image-preview__effect-tag {
@@ -444,10 +299,10 @@
   text-transform: uppercase;
   letter-spacing: 0.12em;
   color: var(--accent-amber);
-  background: var(--accent-amber-glow);
+  background: rgba(212,160,10,0.1);
   padding: 2px 8px;
   border-radius: 3px;
-  border: 1px solid rgba(184, 134, 11, 0.25);
+  border: 1px solid rgba(212,160,10,0.2);
   flex-shrink: 0;
 }
 
@@ -456,42 +311,27 @@
   font-size: 9px;
   font-weight: 600;
   padding: 4px 10px;
-  background:
-    linear-gradient(180deg, rgba(255,255,255,0.2) 0%, transparent 100%),
-    var(--bg-surface);
-  border: 1px solid var(--border-light);
-  border-bottom: 2px solid var(--border-module);
+  background: rgba(255,255,255,0.7);
+  border: 1px solid rgba(0,0,0,0.1);
   color: var(--text-secondary);
-  border-radius: var(--radius-button);
+  border-radius: 6px;
   text-transform: uppercase;
   letter-spacing: 0.06em;
-  box-shadow:
-    0 1px 3px rgba(0,0,0,0.1),
-    inset 0 1px 0 rgba(255,255,255,0.4);
-  transition: all 0.08s;
+  transition: all 0.1s;
+  backdrop-filter: blur(4px);
 }
 
 .image-preview__clear-btn:hover {
-  background: var(--bg-white);
+  background: rgba(255,255,255,0.9);
   color: var(--text-primary);
-  transform: translateY(-1px);
-  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-}
-
-.image-preview__clear-btn:active {
-  transform: translateY(1px);
-  border-bottom-width: 1px;
-  box-shadow: inset 0 2px 4px rgba(0,0,0,0.15);
 }
 
 .image-preview__images {
   flex: 1;
   display: flex;
-  gap: 14px;
-  padding: 14px;
+  gap: 12px;
   overflow: auto;
   align-items: flex-start;
-  min-height: 0;
 }
 
 .image-preview__original,
@@ -519,7 +359,7 @@
   text-transform: uppercase;
   letter-spacing: 0.08em;
   font-weight: 600;
-  color: var(--accent-blue);
+  color: #3a5a8c;
   background: none;
   border: none;
   cursor: pointer;
@@ -531,12 +371,9 @@
 
 .image-preview__img-wrapper {
   position: relative;
-  border-radius: var(--radius-button);
+  border-radius: 6px;
   overflow: hidden;
-  box-shadow:
-    0 2px 8px rgba(0,0,0,0.1),
-    0 1px 2px rgba(0,0,0,0.06);
-  border: 1px solid var(--border-light);
+  box-shadow: 0 2px 12px rgba(0,0,0,0.08);
 }
 
 .image-preview__img-wrapper img {
@@ -553,7 +390,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(26, 24, 22, 0.7);
+  background: rgba(0,0,0,0.5);
   border: none;
   border-radius: 50%;
   color: #fff;
@@ -573,10 +410,9 @@
 .image-preview__result img,
 .image-preview__result video {
   width: 100%;
-  border-radius: var(--radius-button);
+  border-radius: 6px;
   display: block;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-  border: 1px solid var(--border-light);
+  box-shadow: 0 2px 12px rgba(0,0,0,0.08);
 }
 
 .image-preview__processing {
@@ -593,13 +429,11 @@
   font-family: "JetBrains Mono", monospace;
   font-size: 11px;
   font-weight: 500;
-  letter-spacing: 0.02em;
 }
 
 .image-preview__hint {
   font-size: 10px;
   color: var(--text-muted);
-  font-weight: 500;
 }
 
 .image-preview__error {
@@ -611,7 +445,6 @@
   color: var(--accent-red);
   gap: 12px;
   font-size: 12px;
-  font-weight: 500;
 }
 
 .image-preview__error button {
@@ -619,19 +452,24 @@
   font-size: 9px;
   font-weight: 600;
   padding: 5px 12px;
-  background: var(--bg-surface);
-  border: 1px solid var(--border-light);
-  border-bottom: 2px solid var(--border-module);
+  background: rgba(255,255,255,0.7);
+  border: 1px solid rgba(0,0,0,0.1);
   color: var(--text-secondary);
-  border-radius: var(--radius-button);
+  border-radius: 6px;
   text-transform: uppercase;
-  letter-spacing: 0.06em;
 }
 
 /* ========================================
-   CHAT PANEL — CRT Terminal Module
-   The dark module that houses Atlas
+   CHAT PANEL — Atlas terminal (right panel)
+   Transparent overlay on the dark terminal area
    ======================================== */
+
+.app-layout__chat {
+  background: transparent;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
 
 .chat-panel {
   display: flex;
@@ -640,79 +478,24 @@
   overflow: hidden;
 }
 
-.chat-panel__bezel {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  overflow: hidden;
-}
-
-.chat-panel__header {
-  padding: 12px 14px 10px;
-  border-bottom: 1px solid #2a2825;
+/* Spacer for the ATLAS / ONLINE header in the background image */
+.chat-panel__header-spacer {
+  height: 7%;
   flex-shrink: 0;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  background: linear-gradient(180deg, rgba(255,255,255,0.02) 0%, transparent 100%);
 }
 
-.chat-panel__title {
-  font-family: "JetBrains Mono", monospace;
-  font-size: 11px;
-  font-weight: 700;
-  color: var(--text-terminal-accent);
-  text-transform: uppercase;
-  letter-spacing: 0.18em;
-}
-
-.chat-panel__status {
-  font-family: "JetBrains Mono", monospace;
-  font-size: 8px;
-  font-weight: 600;
-  color: var(--accent-olive);
-  text-transform: uppercase;
-  letter-spacing: 0.15em;
-  margin-left: auto;
-  opacity: 0.7;
-}
-
-/* The CRT "screen" area */
+/* The dark screen area where messages appear */
 .chat-panel__screen {
   flex: 1;
-  position: relative;
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  /* Subtle inner screen shadow like a CRT recess */
-  box-shadow:
-    inset 0 2px 8px rgba(0,0,0,0.4),
-    inset 0 0 20px rgba(0,0,0,0.2);
-  margin: 0 6px 6px;
-  border-radius: 4px;
-  background: rgba(0,0,0,0.15);
-}
-
-.chat-panel__screen-content {
-  position: relative;
-  z-index: 1;
-  flex: 1;
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-}
-
-/* Scanline overlay */
-.scanlines {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  z-index: 2;
-  opacity: 0.4;
+  /* Inset to sit inside the dark "screen" bezel in the image */
+  margin: 0 6% 12% 6%;
 }
 
 /* ========================================
-   CHAT WINDOW — Terminal Messages
+   CHAT WINDOW — Messages inside terminal
    ======================================== */
 
 .chat-window {
@@ -725,25 +508,23 @@
 .chat-window__messages {
   flex: 1;
   overflow-y: auto;
-  padding: 12px 10px;
+  padding: 8px 6px;
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 6px;
 }
 
 .chat-window__error {
   font-family: "JetBrains Mono", monospace;
   font-size: 10px;
-  font-weight: 500;
   color: var(--accent-red);
-  padding: 6px 10px;
-  background: rgba(196, 65, 58, 0.08);
+  padding: 6px 8px;
+  background: rgba(196, 65, 58, 0.1);
   border-radius: 3px;
-  border: 1px solid rgba(196, 65, 58, 0.15);
 }
 
 /* ========================================
-   CHAT MESSAGE — Terminal-style text
+   CHAT MESSAGE — Terminal-style
    ======================================== */
 
 .chat-message {
@@ -759,11 +540,11 @@
 }
 
 .chat-message__bubble {
-  max-width: 88%;
-  padding: 8px 12px;
-  border-radius: 6px;
-  font-size: 12px;
-  line-height: 1.65;
+  max-width: 90%;
+  padding: 6px 10px;
+  border-radius: 4px;
+  font-size: 11px;
+  line-height: 1.6;
   white-space: pre-wrap;
   word-break: break-word;
 }
@@ -771,31 +552,31 @@
 .chat-message--user .chat-message__bubble {
   background: rgba(255,255,255,0.06);
   color: var(--text-terminal-bright);
-  border: 1px solid rgba(255,255,255,0.06);
-  border-bottom-right-radius: 2px;
+  border: 1px solid rgba(255,255,255,0.05);
+  border-bottom-right-radius: 1px;
   font-family: "DM Sans", sans-serif;
+  font-size: 12px;
 }
 
 .chat-message--assistant .chat-message__bubble {
   background: transparent;
   color: var(--text-terminal);
   border: none;
-  border-bottom-left-radius: 2px;
+  border-bottom-left-radius: 1px;
   font-family: "JetBrains Mono", monospace;
-  font-size: 11px;
-  line-height: 1.7;
-  padding: 6px 8px;
+  font-size: 10.5px;
+  line-height: 1.65;
+  padding: 4px 6px;
 }
 
-/* Command prompt style for assistant */
 .chat-message--assistant .chat-message__bubble::before {
   content: "> ";
   color: var(--text-terminal-dim);
-  opacity: 0.5;
+  opacity: 0.4;
 }
 
 .chat-message__bubble--loading {
-  padding: 12px 16px;
+  padding: 10px 14px;
 }
 
 .chat-message__bubble--loading::before {
@@ -803,14 +584,13 @@
 }
 
 /* ========================================
-   CHAT INPUT — Terminal prompt
+   CHAT INPUT — At bottom of terminal screen
    ======================================== */
 
 .chat-input {
   display: flex;
-  gap: 6px;
-  padding: 8px 10px;
-  border-top: 1px solid rgba(255,255,255,0.04);
+  gap: 4px;
+  padding: 6px 4px;
   align-items: flex-end;
   flex-shrink: 0;
 }
@@ -818,20 +598,19 @@
 .chat-input__textarea {
   flex: 1;
   resize: none;
-  padding: 8px 10px;
-  background: rgba(0,0,0,0.3);
+  padding: 7px 10px;
+  background: rgba(0,0,0,0.4);
   border: 1px solid rgba(255,255,255,0.06);
   border-radius: 4px;
   color: var(--text-terminal-bright);
   outline: none;
   transition: border-color 0.15s;
   font-family: "JetBrains Mono", monospace;
-  font-size: 11px;
+  font-size: 10.5px;
 }
 
 .chat-input__textarea:focus {
-  border-color: rgba(196, 154, 108, 0.3);
-  box-shadow: 0 0 0 1px rgba(196, 154, 108, 0.15);
+  border-color: rgba(200, 160, 100, 0.25);
 }
 
 .chat-input__textarea::placeholder {
@@ -840,8 +619,8 @@
 }
 
 .chat-input__send {
-  width: 32px;
-  height: 32px;
+  width: 30px;
+  height: 30px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -859,36 +638,32 @@
 }
 
 .chat-input__send:disabled {
-  opacity: 0.2;
+  opacity: 0.15;
   cursor: not-allowed;
 }
 
 /* ========================================
-   SETTINGS MODAL
+   SETTINGS MODAL — Floats above everything
    ======================================== */
 
 .modal-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.4);
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 1000;
-  backdrop-filter: blur(8px);
+  backdrop-filter: blur(12px);
 }
 
 .modal {
-  background:
-    linear-gradient(180deg, rgba(255,255,255,0.06) 0%, transparent 40%),
-    var(--bg-module);
-  border: 1px solid var(--border-module);
-  border-radius: var(--radius-module);
+  background: #f5f3ee;
+  border: 1px solid #d0ccc0;
+  border-radius: 12px;
   width: 90%;
   max-width: 420px;
-  box-shadow:
-    0 20px 60px rgba(0, 0, 0, 0.3),
-    inset 0 1px 0 rgba(255,255,255,0.3);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
 }
 
 .modal__header {
@@ -908,11 +683,8 @@
 }
 
 .modal__close {
-  background:
-    linear-gradient(180deg, rgba(255,255,255,0.2) 0%, transparent 100%),
-    var(--bg-surface);
-  border: 1px solid var(--border-light);
-  border-bottom: 2px solid var(--border-module);
+  background: #eae7e0;
+  border: 1px solid #d0ccc0;
   color: var(--text-muted);
   font-size: 16px;
   width: 26px;
@@ -922,18 +694,12 @@
   justify-content: center;
   border-radius: 50%;
   line-height: 1;
-  transition: all 0.08s;
+  transition: all 0.1s;
 }
 
 .modal__close:hover {
   color: var(--text-primary);
-  transform: translateY(-1px);
-}
-
-.modal__close:active {
-  transform: translateY(1px);
-  border-bottom-width: 1px;
-  box-shadow: inset 0 2px 4px rgba(0,0,0,0.15);
+  background: #ddd9d0;
 }
 
 .modal__body {
@@ -979,20 +745,20 @@
 
 .modal__input {
   padding: 9px 12px;
-  background: var(--bg-input);
-  border: 1px solid var(--border-light);
+  background: #faf8f4;
+  border: 1px solid #d0ccc0;
   border-radius: var(--radius-button);
   color: var(--text-primary);
   outline: none;
   transition: border-color 0.15s;
   font-family: "JetBrains Mono", monospace;
   font-size: 11px;
-  box-shadow: var(--shadow-inset);
+  box-shadow: inset 0 1px 3px rgba(0,0,0,0.08);
 }
 
 .modal__input:focus {
   border-color: var(--accent-amber);
-  box-shadow: var(--shadow-inset), 0 0 0 2px var(--accent-amber-glow);
+  box-shadow: inset 0 1px 3px rgba(0,0,0,0.08), 0 0 0 2px rgba(212,160,10,0.15);
 }
 
 .modal__input::placeholder {
@@ -1015,7 +781,7 @@
 }
 
 /* ========================================
-   BUTTONS — Tactile physical buttons
+   BUTTONS
    ======================================== */
 
 .btn {
@@ -1027,39 +793,19 @@
   border: 1px solid transparent;
   text-transform: uppercase;
   letter-spacing: 0.08em;
-  transition: all 0.08s;
-}
-
-.btn:active {
-  transform: translateY(1px);
+  transition: all 0.1s;
 }
 
 .btn--primary {
-  background:
-    linear-gradient(180deg, rgba(255,255,255,0.12) 0%, transparent 50%, rgba(0,0,0,0.1) 100%),
-    var(--accent-red);
+  background: var(--accent-red);
   color: white;
   border-color: #a83530;
-  border-bottom: 3px solid #8a2b27;
-  box-shadow:
-    0 2px 4px rgba(196,65,58,0.3),
-    inset 0 1px 0 rgba(255,255,255,0.15);
+  box-shadow: 0 2px 6px rgba(196,65,58,0.25);
 }
 
 .btn--primary:hover:not(:disabled) {
-  background:
-    linear-gradient(180deg, rgba(255,255,255,0.18) 0%, transparent 50%, rgba(0,0,0,0.05) 100%),
-    #d04840;
-  transform: translateY(-1px);
-  box-shadow:
-    0 4px 10px rgba(196, 65, 58, 0.35),
-    inset 0 1px 0 rgba(255,255,255,0.2);
-}
-
-.btn--primary:active:not(:disabled) {
-  transform: translateY(2px);
-  border-bottom-width: 1px;
-  box-shadow: inset 0 2px 6px rgba(0,0,0,0.3);
+  background: #d04840;
+  box-shadow: 0 4px 12px rgba(196, 65, 58, 0.3);
 }
 
 .btn--primary:disabled {
@@ -1068,19 +814,14 @@
 }
 
 .btn--secondary {
-  background:
-    linear-gradient(180deg, rgba(255,255,255,0.2) 0%, transparent 100%),
-    var(--bg-surface);
+  background: #eae7e0;
   color: var(--text-secondary);
-  border: 1px solid var(--border-light);
-  border-bottom: 3px solid var(--border-module);
-  box-shadow: inset 0 1px 0 rgba(255,255,255,0.4);
+  border: 1px solid #d0ccc0;
 }
 
 .btn--secondary:hover {
-  background: var(--bg-white);
+  background: #ddd9d0;
   color: var(--text-primary);
-  transform: translateY(-1px);
 }
 
 /* ========================================
@@ -1089,18 +830,19 @@
 
 .api-key-banner {
   position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  padding: 10px 18px;
-  background: var(--accent-amber-glow);
-  border-top: 1px solid rgba(184, 134, 11, 0.2);
+  bottom: 4%;
+  left: 4%;
+  right: 4%;
+  padding: 10px 16px;
+  background: rgba(255,255,255,0.8);
+  backdrop-filter: blur(8px);
+  border-radius: 8px;
+  border: 1px solid rgba(212,160,10,0.2);
   font-family: "JetBrains Mono", monospace;
   font-size: 10px;
   font-weight: 500;
   color: var(--accent-amber);
   text-align: center;
-  letter-spacing: 0.02em;
 }
 
 .api-key-banner button {
@@ -1121,7 +863,7 @@
 .spinner {
   width: 20px;
   height: 20px;
-  border: 2px solid var(--border-module);
+  border: 2px solid rgba(0,0,0,0.1);
   border-top-color: var(--accent-red);
   border-radius: 50%;
   animation: spin 0.8s linear infinite;
@@ -1134,13 +876,11 @@
 }
 
 @keyframes spin {
-  to {
-    transform: rotate(360deg);
-  }
+  to { transform: rotate(360deg); }
 }
 
 /* ========================================
-   DOT PULSE — Terminal Loading
+   DOT PULSE — Terminal loading
    ======================================== */
 
 .dot-pulse {
