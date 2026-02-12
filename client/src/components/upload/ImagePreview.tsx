@@ -33,7 +33,7 @@ export function ImagePreview({
       const response = await fetch(resultUrl);
       const blob = await response.blob();
       const ext = resultType === "video" ? "mp4" : "png";
-      const downloadName = `docassist-result.${ext}`;
+      const downloadName = `restore-result.${ext}`;
       const url = window.URL.createObjectURL(blob);
       const a = document.createElement("a");
       a.href = url;

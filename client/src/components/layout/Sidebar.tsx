@@ -9,7 +9,7 @@ export function Sidebar({ children, onSettingsClick }: SidebarProps) {
   return (
     <div className="sidebar">
       <div className="sidebar__header">
-        <h1 className="sidebar__title">DocAssist</h1>
+        <h1 className="sidebar__title">Restore</h1>
         <button
           className="sidebar__settings-btn"
           onClick={onSettingsClick}
