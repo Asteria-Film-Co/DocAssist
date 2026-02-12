@@ -5,7 +5,7 @@ export const EFFECTS: Effect[] = [
     id: "colorize",
     name: "Colorize",
     description: "Add realistic color to black & white photos",
-    icon: "\uD83C\uDFA8",
+    icon: "\uD83C\uDF08",
     apiType: "imagen",
   },
   {
@@ -24,8 +24,8 @@ export const EFFECTS: Effect[] = [
   },
   {
     id: "kenburns",
-    name: "3D Ken Burns",
-    description: "Animated pan & zoom with depth parallax",
+    name: "3D Push In",
+    description: "Camera pushes forward into the scene with depth parallax",
     icon: "\uD83C\uDFAC",
     apiType: "veo",
   },

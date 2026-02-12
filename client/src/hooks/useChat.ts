@@ -7,7 +7,7 @@ export function useChat() {
     {
       role: "assistant",
       content:
-        "Hello! I'm your documentary research assistant. I can help with historical research, fact-checking, archival sourcing, and storytelling advice. What are you working on?",
+        "Hello! My name is Atlas, your documentary research companion. I can help with historical research, fact-checking, archival sourcing, and storytelling advice. What are you working on?",
       timestamp: Date.now(),
     },
   ]);
@@ -58,7 +58,7 @@ export function useChat() {
       {
         role: "assistant",
         content:
-          "Hello! I'm your documentary research assistant. I can help with historical research, fact-checking, archival sourcing, and storytelling advice. What are you working on?",
+          "Hello! My name is Atlas, your documentary research companion. I can help with historical research, fact-checking, archival sourcing, and storytelling advice. What are you working on?",
         timestamp: Date.now(),
       },
     ]);
