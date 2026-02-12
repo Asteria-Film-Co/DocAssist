@@ -1,30 +1,43 @@
 /* ========================================
-   APP LAYOUT - 3-panel grid
-   NASA/JPL-inspired documentary filmmaker tool
+   RESTORE — Braun/Dieter Rams Design System
+   Tactile analog modules, warm retrofuturism
+   ======================================== */
+
+/* ========================================
+   APP LAYOUT — 3-module grid with gaps
    ======================================== */
 
 .app-layout {
   display: grid;
-  grid-template-columns: 260px 1fr 360px;
+  grid-template-columns: 272px 1fr 340px;
   grid-template-rows: 1fr auto;
   height: 100vh;
+  padding: 12px;
+  gap: 12px;
   overflow: hidden;
 }
 
 .app-layout__sidebar {
-  background: var(--bg-secondary);
-  border-right: 1px solid var(--border);
+  background: var(--bg-module);
+  border-radius: var(--radius-module);
+  box-shadow: var(--shadow-module);
+  border: 1px solid var(--border-light);
   overflow-y: auto;
 }
 
 .app-layout__center {
-  background: var(--bg-primary);
+  background: var(--bg-surface);
+  border-radius: var(--radius-module);
+  box-shadow: var(--shadow-module);
+  border: 1px solid var(--border-light);
   overflow-y: auto;
 }
 
 .app-layout__chat {
-  background: var(--bg-secondary);
-  border-left: 1px solid var(--border);
+  background: var(--bg-terminal);
+  border-radius: var(--radius-module);
+  box-shadow: var(--shadow-module), 0 0 1px rgba(0,0,0,0.3);
+  border: 1px solid #2a2825;
   overflow: hidden;
   display: flex;
   flex-direction: column;
@@ -35,21 +48,20 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 6px 0;
-  background: var(--bg-panel);
-  border-top: 1px solid var(--border);
+  padding: 4px 0;
 }
 
 .app-layout__branding {
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 0.18em;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.25em;
   text-transform: uppercase;
   color: var(--text-muted);
 }
 
 /* ========================================
-   SIDEBAR
+   SIDEBAR — Control Panel Module
    ======================================== */
 
 .sidebar {
@@ -62,57 +74,68 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 20px 16px 6px;
+  padding: 18px 16px 4px;
 }
 
 .sidebar__title {
-  font-size: 15px;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 14px;
   font-weight: 800;
-  color: var(--nasa-red);
-  letter-spacing: 0.08em;
+  color: var(--accent-red);
+  letter-spacing: 0.12em;
   text-transform: uppercase;
 }
 
 .sidebar__settings-btn {
-  background: none;
-  border: none;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-light);
   color: var(--text-muted);
-  padding: 6px;
-  border-radius: 6px;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
+  box-shadow: var(--shadow-button);
   transition: all 0.15s;
 }
 
 .sidebar__settings-btn:hover {
-  background: var(--bg-hover);
+  background: var(--bg-white);
   color: var(--text-primary);
+  transform: translateY(-1px);
+  box-shadow: 0 3px 6px rgba(0,0,0,0.15);
+}
+
+.sidebar__settings-btn:active {
+  transform: translateY(0);
+  box-shadow: var(--shadow-button-pressed);
 }
 
 .sidebar__subtitle {
-  font-size: 10px;
-  font-weight: 700;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 9px;
+  font-weight: 500;
   text-transform: uppercase;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.18em;
   color: var(--text-muted);
-  padding: 2px 16px 14px;
+  padding: 4px 16px 12px;
 }
 
 .sidebar__content {
   flex: 1;
   overflow-y: auto;
-  padding: 0 8px 16px;
+  padding: 0 10px 16px;
 }
 
 /* ========================================
-   EFFECTS LIST & BUTTONS
+   EFFECTS LIST — Physical Button Grid
    ======================================== */
 
 .effects-list {
   display: flex;
   flex-direction: column;
-  gap: 2px;
+  gap: 6px;
 }
 
 .effects-list__hint {
@@ -122,8 +145,12 @@
   font-weight: 500;
   padding: 20px 12px;
   margin-top: 8px;
-  letter-spacing: 0.01em;
+  font-style: italic;
 }
+
+/* ========================================
+   EFFECT BUTTON — Tactile Physical Buttons
+   ======================================== */
 
 .effect-btn {
   display: flex;
@@ -131,42 +158,82 @@
   gap: 10px;
   width: 100%;
   padding: 10px 12px;
-  background: transparent;
-  border: none;
-  border-radius: 6px;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-light);
+  border-bottom: 2px solid var(--border-module);
+  border-radius: var(--radius-button);
   color: var(--text-primary);
   text-align: left;
-  transition: all 0.15s;
+  box-shadow: var(--shadow-button);
+  transition: all 0.1s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.effect-btn::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: rgba(255,255,255,0.7);
 }
 
 .effect-btn:hover:not(:disabled) {
-  background: var(--bg-hover);
+  background: var(--bg-white);
+  transform: translateY(-1px);
+  box-shadow: 0 3px 8px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.08);
+}
+
+.effect-btn:active:not(:disabled) {
+  transform: translateY(1px);
+  box-shadow: var(--shadow-button-pressed);
+  border-bottom-width: 1px;
+  border-top: 2px solid var(--border-inset);
 }
 
 .effect-btn:disabled {
-  opacity: 0.4;
+  opacity: 0.35;
   cursor: not-allowed;
 }
 
 .effect-btn--active {
-  background: var(--accent-dim) !important;
-  border-left: 3px solid var(--nasa-blue);
+  background: var(--bg-module-inset) !important;
+  box-shadow: var(--shadow-button-pressed) !important;
+  transform: translateY(1px) !important;
+  border-bottom-width: 1px;
+  border-top: 2px solid var(--border-inset);
+}
+
+.effect-btn--active .effect-btn__indicator {
+  background: var(--accent-red);
+  box-shadow: 0 0 6px var(--accent-red-glow), 0 0 12px var(--accent-red-glow);
 }
 
 .effect-btn--selected {
-  background: var(--accent-dim) !important;
-  border-left: 3px solid var(--nasa-blue);
+  background: var(--bg-white) !important;
+  border-color: var(--accent-amber);
+  box-shadow: 0 0 0 1px var(--accent-amber), var(--shadow-button);
+}
+
+.effect-btn--selected .effect-btn__indicator {
+  background: var(--accent-amber);
+  box-shadow: 0 0 6px var(--accent-amber-glow);
 }
 
 .effect-btn--stub {
   opacity: 0.3;
 }
 
-.effect-btn__icon {
-  font-size: 17px;
-  width: 28px;
-  text-align: center;
+.effect-btn__indicator {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--border-module);
   flex-shrink: 0;
+  transition: all 0.2s;
+  box-shadow: inset 0 1px 2px rgba(0,0,0,0.2);
 }
 
 .effect-btn__text {
@@ -176,33 +243,36 @@
 
 .effect-btn__name {
   display: block;
-  font-size: 13px;
+  font-size: 12.5px;
   font-weight: 600;
   letter-spacing: 0.01em;
 }
 
 .effect-btn__status {
   display: block;
-  font-size: 11px;
-  color: var(--nasa-blue-light);
+  font-family: "JetBrains Mono", monospace;
+  font-size: 10px;
+  color: var(--accent-red);
   font-weight: 500;
+  letter-spacing: 0.02em;
 }
 
 .effect-btn__badge {
-  font-size: 9px;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 8px;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.06em;
-  padding: 2px 7px;
-  border-radius: 3px;
-  background: var(--bg-panel);
+  letter-spacing: 0.1em;
+  padding: 3px 6px;
+  border-radius: var(--radius-small);
+  background: var(--bg-module-inset);
   color: var(--text-muted);
   flex-shrink: 0;
   border: 1px solid var(--border-light);
 }
 
 /* ========================================
-   CENTER PANEL
+   CENTER PANEL — Clean Workspace
    ======================================== */
 
 .center-panel {
@@ -213,7 +283,7 @@
 }
 
 /* ========================================
-   IMAGE UPLOAD
+   IMAGE UPLOAD — Drop Zone
    ======================================== */
 
 .image-upload {
@@ -221,17 +291,17 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 24px;
-  border: 2px dashed var(--border);
-  border-radius: 12px;
+  margin: 20px;
+  border: 2px dashed var(--border-module);
+  border-radius: var(--radius-module);
   cursor: pointer;
   transition: all 0.2s;
-  background: var(--bg-secondary);
+  background: var(--bg-module);
 }
 
 .image-upload:hover {
-  border-color: var(--nasa-blue);
-  background: var(--accent-dim);
+  border-color: var(--accent-amber);
+  background: var(--accent-amber-glow);
 }
 
 .image-upload__prompt {
@@ -245,17 +315,18 @@
 }
 
 .image-upload__text {
-  font-size: 16px;
+  font-size: 15px;
   font-weight: 600;
   color: var(--text-primary);
   margin-bottom: 8px;
-  letter-spacing: -0.01em;
 }
 
 .image-upload__subtext {
-  font-size: 12px;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 10px;
   color: var(--text-muted);
   font-weight: 500;
+  letter-spacing: 0.04em;
 }
 
 .image-upload__loading {
@@ -278,58 +349,69 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 12px 20px;
-  border-bottom: 1px solid var(--border);
+  padding: 10px 16px;
+  border-bottom: 1px solid var(--border-light);
   flex-shrink: 0;
-  background: var(--bg-secondary);
+  background: var(--bg-module);
 }
 
 .image-preview__filename {
-  font-size: 12px;
-  font-weight: 600;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 11px;
+  font-weight: 500;
   color: var(--text-secondary);
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  letter-spacing: 0.01em;
+  letter-spacing: 0.02em;
 }
 
 .image-preview__effect-tag {
-  font-size: 11px;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 10px;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: var(--nasa-blue);
-  background: var(--accent-dim);
+  letter-spacing: 0.1em;
+  color: var(--accent-amber);
+  background: var(--accent-amber-glow);
   padding: 3px 10px;
-  border-radius: 4px;
-  border: 1px solid rgba(11, 61, 145, 0.2);
+  border-radius: var(--radius-small);
+  border: 1px solid rgba(184, 134, 11, 0.3);
   flex-shrink: 0;
 }
 
 .image-preview__clear-btn {
-  font-size: 11px;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 10px;
   font-weight: 600;
-  padding: 4px 12px;
-  background: var(--bg-panel);
-  border: 1px solid var(--border);
+  padding: 5px 12px;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-light);
+  border-bottom: 2px solid var(--border-module);
   color: var(--text-secondary);
-  border-radius: 4px;
+  border-radius: var(--radius-button);
   text-transform: uppercase;
-  letter-spacing: 0.04em;
-  transition: all 0.15s;
+  letter-spacing: 0.06em;
+  box-shadow: var(--shadow-button);
+  transition: all 0.1s;
 }
 
 .image-preview__clear-btn:hover {
-  background: var(--bg-hover);
+  background: var(--bg-white);
   color: var(--text-primary);
+  transform: translateY(-1px);
+}
+
+.image-preview__clear-btn:active {
+  transform: translateY(1px);
+  box-shadow: var(--shadow-button-pressed);
 }
 
 .image-preview__images {
   flex: 1;
   display: flex;
-  gap: 20px;
-  padding: 20px;
+  gap: 16px;
+  padding: 16px;
   overflow: auto;
   align-items: flex-start;
 }
@@ -344,31 +426,37 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  font-size: 10px;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 9px;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.15em;
   color: var(--text-muted);
-  margin-bottom: 10px;
+  margin-bottom: 8px;
 }
 
 .image-preview__download {
-  font-size: 11px;
-  text-transform: none;
-  letter-spacing: normal;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
   font-weight: 600;
-  color: var(--nasa-blue);
+  color: var(--accent-blue);
+  background: none;
+  border: none;
+  cursor: pointer;
 }
 
 .image-preview__download:hover {
-  color: var(--nasa-blue-light);
+  color: var(--accent-red);
 }
 
 .image-preview__img-wrapper {
   position: relative;
-  border-radius: 6px;
+  border-radius: var(--radius-button);
   overflow: hidden;
-  box-shadow: 0 2px 12px var(--shadow);
+  box-shadow: var(--shadow-raised);
+  border: 1px solid var(--border-light);
 }
 
 .image-preview__img-wrapper img {
@@ -378,16 +466,16 @@
 
 .image-preview__trash-btn {
   position: absolute;
-  top: 10px;
-  right: 10px;
-  width: 36px;
-  height: 36px;
+  top: 8px;
+  right: 8px;
+  width: 32px;
+  height: 32px;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(0, 0, 0, 0.65);
+  background: rgba(26, 24, 22, 0.7);
   border: none;
-  border-radius: 6px;
+  border-radius: 50%;
   color: #fff;
   opacity: 0;
   transition: opacity 0.15s;
@@ -399,16 +487,17 @@
 }
 
 .image-preview__trash-btn:hover {
-  background: var(--nasa-red);
+  background: var(--accent-red);
   color: #fff;
 }
 
 .image-preview__result img,
 .image-preview__result video {
   width: 100%;
-  border-radius: 6px;
+  border-radius: var(--radius-button);
   display: block;
-  box-shadow: 0 2px 12px var(--shadow);
+  box-shadow: var(--shadow-raised);
+  border: 1px solid var(--border-light);
 }
 
 .image-preview__processing {
@@ -422,8 +511,10 @@
 }
 
 .image-preview__processing p {
-  font-size: 13px;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 12px;
   font-weight: 500;
+  letter-spacing: 0.02em;
 }
 
 .image-preview__hint {
@@ -438,26 +529,29 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  color: var(--error);
+  color: var(--accent-red);
   gap: 12px;
   font-size: 13px;
   font-weight: 500;
 }
 
 .image-preview__error button {
-  font-size: 11px;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 10px;
   font-weight: 600;
-  padding: 5px 14px;
-  background: var(--bg-panel);
-  border: 1px solid var(--border);
+  padding: 6px 14px;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-light);
+  border-bottom: 2px solid var(--border-module);
   color: var(--text-secondary);
-  border-radius: 4px;
+  border-radius: var(--radius-button);
   text-transform: uppercase;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.06em;
+  box-shadow: var(--shadow-button);
 }
 
 /* ========================================
-   CHAT PANEL
+   CHAT PANEL — Warm Analog Terminal
    ======================================== */
 
 .chat-panel {
@@ -468,17 +562,32 @@
 }
 
 .chat-panel__header {
-  padding: 20px 16px 14px;
-  border-bottom: 1px solid var(--border);
+  padding: 16px 16px 12px;
+  border-bottom: 1px solid var(--border-terminal);
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.chat-panel__header::before {
+  content: "";
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--accent-olive);
+  box-shadow: 0 0 6px rgba(90, 110, 66, 0.5);
   flex-shrink: 0;
 }
 
 .chat-panel__title {
-  font-size: 13px;
-  font-weight: 800;
-  color: var(--nasa-blue);
+  font-family: "JetBrains Mono", monospace;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--text-terminal-accent);
   text-transform: uppercase;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.15em;
 }
 
 .chat-panel__content {
@@ -489,7 +598,7 @@
 }
 
 /* ========================================
-   CHAT WINDOW
+   CHAT WINDOW — Terminal Messages
    ======================================== */
 
 .chat-window {
@@ -502,24 +611,25 @@
 .chat-window__messages {
   flex: 1;
   overflow-y: auto;
-  padding: 16px;
+  padding: 14px;
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 10px;
 }
 
 .chat-window__error {
-  font-size: 12px;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 11px;
   font-weight: 500;
-  color: var(--error);
+  color: var(--accent-red);
   padding: 8px 12px;
-  background: rgba(192, 57, 43, 0.08);
-  border-radius: 6px;
-  border: 1px solid rgba(192, 57, 43, 0.15);
+  background: rgba(196, 65, 58, 0.1);
+  border-radius: var(--radius-small);
+  border: 1px solid rgba(196, 65, 58, 0.2);
 }
 
 /* ========================================
-   CHAT MESSAGE
+   CHAT MESSAGE — Terminal-style
    ======================================== */
 
 .chat-message {
@@ -535,26 +645,32 @@
 }
 
 .chat-message__bubble {
-  max-width: 85%;
+  max-width: 88%;
   padding: 10px 14px;
-  border-radius: 10px;
+  border-radius: var(--radius-button);
   font-size: 13px;
-  line-height: 1.55;
+  line-height: 1.6;
   white-space: pre-wrap;
   word-break: break-word;
 }
 
 .chat-message--user .chat-message__bubble {
-  background: var(--nasa-blue);
-  color: #fff;
-  border-bottom-right-radius: 3px;
+  background: var(--bg-terminal-surface);
+  color: var(--text-terminal-bright);
+  border: 1px solid var(--border-terminal);
+  border-bottom-right-radius: 2px;
+  font-family: "DM Sans", sans-serif;
 }
 
 .chat-message--assistant .chat-message__bubble {
-  background: var(--bg-panel);
-  color: var(--text-primary);
-  border-bottom-left-radius: 3px;
-  border: 1px solid var(--border-light);
+  background: transparent;
+  color: var(--text-terminal);
+  border: none;
+  border-bottom-left-radius: 2px;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 12px;
+  line-height: 1.7;
+  padding: 8px 10px;
 }
 
 .chat-message__bubble--loading {
@@ -562,14 +678,14 @@
 }
 
 /* ========================================
-   CHAT INPUT
+   CHAT INPUT — Terminal Input Line
    ======================================== */
 
 .chat-input {
   display: flex;
   gap: 8px;
-  padding: 12px 16px;
-  border-top: 1px solid var(--border);
+  padding: 10px 14px;
+  border-top: 1px solid var(--border-terminal);
   align-items: flex-end;
   flex-shrink: 0;
 }
@@ -577,45 +693,47 @@
 .chat-input__textarea {
   flex: 1;
   resize: none;
-  padding: 10px 12px;
-  background: var(--bg-input);
-  border: 1px solid var(--border);
-  border-radius: 6px;
-  color: var(--text-primary);
+  padding: 9px 12px;
+  background: var(--bg-terminal-surface);
+  border: 1px solid var(--border-terminal);
+  border-radius: var(--radius-small);
+  color: var(--text-terminal-bright);
   outline: none;
   transition: border-color 0.15s;
-  font-size: 13px;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 12px;
 }
 
 .chat-input__textarea:focus {
-  border-color: var(--nasa-blue);
-  box-shadow: 0 0 0 2px var(--accent-dim);
+  border-color: var(--text-terminal-dim);
+  box-shadow: 0 0 0 1px var(--text-terminal-dim);
 }
 
 .chat-input__textarea::placeholder {
-  color: var(--text-muted);
+  color: var(--text-terminal-dim);
 }
 
 .chat-input__send {
-  width: 36px;
-  height: 36px;
+  width: 34px;
+  height: 34px;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: var(--nasa-blue);
-  border: none;
-  border-radius: 6px;
-  color: white;
+  background: var(--bg-terminal-surface);
+  border: 1px solid var(--border-terminal);
+  border-radius: var(--radius-small);
+  color: var(--text-terminal-accent);
   flex-shrink: 0;
-  transition: background 0.15s;
+  transition: all 0.15s;
 }
 
 .chat-input__send:hover:not(:disabled) {
-  background: var(--nasa-blue-light);
+  background: var(--border-terminal);
+  color: var(--text-terminal-bright);
 }
 
 .chat-input__send:disabled {
-  opacity: 0.35;
+  opacity: 0.25;
   cursor: not-allowed;
 }
 
@@ -631,16 +749,16 @@
   align-items: center;
   justify-content: center;
   z-index: 1000;
-  backdrop-filter: blur(6px);
+  backdrop-filter: blur(8px);
 }
 
 .modal {
-  background: var(--bg-primary);
-  border: 1px solid var(--border);
-  border-radius: 10px;
+  background: var(--bg-module);
+  border: 1px solid var(--border-module);
+  border-radius: var(--radius-module);
   width: 90%;
   max-width: 440px;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.18);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
 }
 
 .modal__header {
@@ -651,25 +769,38 @@
 }
 
 .modal__header h2 {
-  font-size: 14px;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 12px;
   font-weight: 800;
   text-transform: uppercase;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.1em;
   color: var(--text-primary);
 }
 
 .modal__close {
-  background: none;
-  border: none;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-light);
   color: var(--text-muted);
-  font-size: 22px;
-  padding: 0;
+  font-size: 18px;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
   line-height: 1;
-  transition: color 0.15s;
+  box-shadow: var(--shadow-button);
+  transition: all 0.1s;
 }
 
 .modal__close:hover {
   color: var(--text-primary);
+  transform: translateY(-1px);
+}
+
+.modal__close:active {
+  transform: translateY(1px);
+  box-shadow: var(--shadow-button-pressed);
 }
 
 .modal__body {
@@ -683,11 +814,12 @@
 }
 
 .modal__label {
-  font-size: 12px;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 10px;
   font-weight: 700;
   color: var(--text-primary);
   text-transform: uppercase;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.08em;
 }
 
 .modal__help {
@@ -697,34 +829,37 @@
 }
 
 .modal__status {
-  font-size: 12px;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 11px;
   color: var(--text-secondary);
 }
 
 .modal__status--ok {
-  color: var(--success);
+  color: var(--accent-olive);
   font-weight: 600;
 }
 
 .modal__status--missing {
-  color: var(--warning);
+  color: var(--accent-amber);
   font-weight: 600;
 }
 
 .modal__input {
   padding: 10px 12px;
   background: var(--bg-input);
-  border: 1px solid var(--border);
-  border-radius: 6px;
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-button);
   color: var(--text-primary);
   outline: none;
   transition: border-color 0.15s;
-  font-size: 13px;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 12px;
+  box-shadow: var(--shadow-inset);
 }
 
 .modal__input:focus {
-  border-color: var(--nasa-blue);
-  box-shadow: 0 0 0 2px var(--accent-dim);
+  border-color: var(--accent-amber);
+  box-shadow: var(--shadow-inset), 0 0 0 2px var(--accent-amber-glow);
 }
 
 .modal__input::placeholder {
@@ -732,8 +867,9 @@
 }
 
 .modal__message {
-  font-size: 13px;
-  color: var(--nasa-blue);
+  font-family: "JetBrains Mono", monospace;
+  font-size: 11px;
+  color: var(--accent-olive);
   font-weight: 500;
   margin-top: 8px;
 }
@@ -746,27 +882,44 @@
 }
 
 /* ========================================
-   BUTTONS
+   BUTTONS — Tactile Physical Buttons
    ======================================== */
 
 .btn {
   padding: 8px 18px;
-  border-radius: 5px;
-  font-size: 12px;
+  border-radius: var(--radius-button);
+  font-family: "JetBrains Mono", monospace;
+  font-size: 11px;
   font-weight: 700;
-  border: none;
+  border: 1px solid transparent;
   text-transform: uppercase;
-  letter-spacing: 0.04em;
-  transition: all 0.15s;
+  letter-spacing: 0.06em;
+  box-shadow: var(--shadow-button);
+  transition: all 0.1s;
+}
+
+.btn:active {
+  transform: translateY(1px);
+  box-shadow: var(--shadow-button-pressed);
 }
 
 .btn--primary {
-  background: var(--nasa-blue);
+  background: var(--accent-red);
   color: white;
+  border-color: #a83530;
+  border-bottom: 2px solid #8a2b27;
 }
 
 .btn--primary:hover:not(:disabled) {
-  background: var(--nasa-blue-light);
+  background: #d04840;
+  transform: translateY(-1px);
+  box-shadow: 0 3px 8px rgba(196, 65, 58, 0.3);
+}
+
+.btn--primary:active:not(:disabled) {
+  transform: translateY(1px);
+  box-shadow: var(--shadow-button-pressed);
+  border-bottom-width: 1px;
 }
 
 .btn--primary:disabled {
@@ -775,14 +928,16 @@
 }
 
 .btn--secondary {
-  background: var(--bg-panel);
+  background: var(--bg-surface);
   color: var(--text-secondary);
-  border: 1px solid var(--border);
+  border: 1px solid var(--border-light);
+  border-bottom: 2px solid var(--border-module);
 }
 
 .btn--secondary:hover {
-  background: var(--bg-hover);
+  background: var(--bg-white);
   color: var(--text-primary);
+  transform: translateY(-1px);
 }
 
 /* ========================================
@@ -795,19 +950,21 @@
   left: 0;
   right: 0;
   padding: 12px 20px;
-  background: rgba(181, 101, 29, 0.08);
-  border-top: 1px solid rgba(181, 101, 29, 0.18);
-  font-size: 13px;
+  background: var(--accent-amber-glow);
+  border-top: 1px solid rgba(184, 134, 11, 0.25);
+  font-family: "JetBrains Mono", monospace;
+  font-size: 11px;
   font-weight: 500;
-  color: var(--warning);
+  color: var(--accent-amber);
   text-align: center;
 }
 
 .api-key-banner button {
   background: none;
   border: none;
-  color: var(--nasa-blue);
-  font-size: 13px;
+  color: var(--accent-red);
+  font-family: "JetBrains Mono", monospace;
+  font-size: 11px;
   font-weight: 600;
   text-decoration: underline;
   padding: 0;
@@ -820,8 +977,8 @@
 .spinner {
   width: 20px;
   height: 20px;
-  border: 2px solid var(--border);
-  border-top-color: var(--nasa-blue);
+  border: 2px solid var(--border-module);
+  border-top-color: var(--accent-red);
   border-radius: 50%;
   animation: spin 0.8s linear infinite;
 }
@@ -839,12 +996,12 @@
 }
 
 /* ========================================
-   DOT PULSE (chat loading)
+   DOT PULSE — Terminal Loading
    ======================================== */
 
 .dot-pulse {
   display: inline-flex;
-  gap: 4px;
+  gap: 5px;
 }
 
 .dot-pulse::before,
@@ -856,10 +1013,10 @@
 .dot-pulse::before {
   content: "";
   display: inline-block;
-  width: 6px;
-  height: 6px;
+  width: 5px;
+  height: 5px;
   border-radius: 50%;
-  background: var(--text-muted);
+  background: var(--text-terminal-dim);
   animation: pulse 1.4s infinite ease-in-out both;
   animation-delay: -0.32s;
 }
@@ -867,10 +1024,10 @@
 .dot-pulse::after {
   content: "";
   display: inline-block;
-  width: 6px;
-  height: 6px;
+  width: 5px;
+  height: 5px;
   border-radius: 50%;
-  background: var(--text-muted);
+  background: var(--text-terminal-dim);
   animation: pulse 1.4s infinite ease-in-out both;
   animation-delay: 0.16s;
 }

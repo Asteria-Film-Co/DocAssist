@@ -24,7 +24,7 @@ export function EffectButton({
       disabled={disabled || isStub}
       title={effect.description}
     >
-      <span className="effect-btn__icon">{effect.icon}</span>
+      <span className="effect-btn__indicator" />
       <div className="effect-btn__text">
         <span className="effect-btn__name">{effect.name}</span>
         {isActive && (
