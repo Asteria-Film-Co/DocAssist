@@ -1,5 +1,6 @@
 import type { ReactNode } from "react";
 import { RadialVent } from "../hardware/RadialVent";
+import { CircleGrille } from "../hardware/CircleGrille";
 import { HorizontalSlider } from "../hardware/HorizontalSlider";
 import { SettingsKnob } from "../hardware/SettingsKnob";
 import { ToggleSwitch } from "../hardware/ToggleSwitch";
@@ -16,22 +17,14 @@ export function AppLayout({ sidebar, center, chat }: AppLayoutProps) {
       {/* Top hardware bar */}
       <div className="hardware-bar hardware-bar--top">
         <div className="hardware-bar__left">
-          <RadialVent size={50} />
-          <div className="hardware-bar__crosshair">
-            <svg width="24" height="24" viewBox="0 0 24 24">
-              <line x1="12" y1="4" x2="12" y2="20" stroke="#c4413a" strokeWidth="1" />
-              <line x1="4" y1="12" x2="20" y2="12" stroke="#c4413a" strokeWidth="1" />
-              <circle cx="12" cy="12" r="3" fill="none" stroke="#c4413a" strokeWidth="0.5" />
-            </svg>
-          </div>
-          <SettingsKnob size={44} />
+          <HorizontalSlider width={160} height={14} position={0.25} />
         </div>
         <div className="hardware-bar__center">
-          <HorizontalSlider width={200} height={14} />
+          <CircleGrille size={70} />
         </div>
         <div className="hardware-bar__right">
-          <SettingsKnob size={44} />
-          <ToggleSwitch size={18} />
+          <SettingsKnob size={44} indicator="triangle" />
+          <SettingsKnob size={44} indicator="red" />
         </div>
       </div>
 
@@ -52,11 +45,11 @@ export function AppLayout({ sidebar, center, chat }: AppLayoutProps) {
           <RadialVent size={50} />
         </div>
         <div className="hardware-bar__center">
-          <HorizontalSlider width={200} height={14} />
+          <HorizontalSlider width={240} height={14} position={0.65} />
         </div>
         <div className="hardware-bar__right">
-          <SettingsKnob size={44} />
-          <ToggleSwitch size={18} />
+          <SettingsKnob size={44} indicator="triangle" />
+          <ToggleSwitch size={16} />
         </div>
       </div>
     </div>
